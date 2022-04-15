@@ -1,55 +1,70 @@
-# React App with Express Backend
+# Zest
 
-https://strawberry-surprise-11875.herokuapp.com/
+## **What is it?**
 
-This structure can be used to build a React front end with an ExpressJS back end and provides a way to work in development by running a React Dev Server along with the API backend, and also to run a unified back end/front end when pushed to Heroku. It also includes TypeScript for both client and server.
+Food Costly is an recipe management app designed to help users design, cost and store recipes. The main feature of the app are:
 
-For more explanation, see [this](https://gist.github.com/imaginetheheadline/a51bbdc5b53e58fff472997166616452).
+### **Recipe Builder**
 
-## For development
+An easy to use template will be provided for users to create consistent, easy to read recipes (and printer friendly). The recipes will be stored in a database for easy recipe management.
 
-Auto install all dependencies for client and server:
-```
-npm install
-```
+### **Food Costing**
 
-Run a development server for React and an Express Back end with `nodemon` auto re-start and `ts-node`
-```
-npm run dev
-```
+Users can create a pantry list of ingredients and their prices, which will be stored in a database. They will then have the ability to cost recipes. As as they select the ingredients and quantities when they are creating the recipe, it will calculate and cost the meal based on the current prices in the database. As ingredient costs fluctuate, user can update the prices in the database, which will automatically update the recipe costings.
 
-Head to `localhost:3000` for development. The Express API runs on port 3001 and is proxied through the React App on port 3000. Any changes to server or client automatically update and reflect in the app with a page refresh. Make sure that the `"proxy"` property in the client `package.json` file is set to the local URL of your Express Backend.
+## **App Structure**
 
-## Production
+- --
 
-You can mimic what Heroku will do in production by running the following.
+## Technologies To Use
 
-Auto install all dependencies for client and server:
-```
-npm install
-```
+- HTML/CSS
+- React/Node
+- Typescript
+- PostgreSQL
 
-Build a production React App
-```
-npm build
-```
+## App Requirements
 
-Start a production server:
-```
-npm run start:local
-```
+- HomePage
 
-Head to `localhost:3000`. Both the API and the built React front end are now running on the same server. No code gets auto-updated in this mode.
+-   Landing Page Pitch
 
-Note that the line `const port = process.env.PORT || (process.env.NODE_ENV === 'production' && 3000) || 3001;` is particularly important in `server/server.ts` as this will allow us to change the port in production to 3000, and run by default on 3001 for development mode. It basically says that if the PORT is set directly, we should use it; otherwise, if we're in production use port 3000. Otherwise, use port 3001.
+-   Video/Screenshot Examples?
 
-## Check the Node version
+- Login/Signup Page
 
-This project uses `.nvmrc` to determine the node version for development and `package.json` for Heroku. You can run the following to install and use the version locally:
+-   Form Validation
 
-```
-nvm install
-nvm use
-```
+-   Password Encryption
 
-Heroku will use the version defined in `package.json` `"engines"` property. Make sure `.nvmrc` and `package.json` versions of Node match.
+- Database
+
+-   Ingredients/Pantry Table (Ingredient, Supplier, Cost, Cost per g/ml, dateAdded, Quantity)
+
+-   Users Table (First Name, Last Name, Company, Email, Phone, Location)
+
+-   Recipes Table (Recipe Name, Recipe Description/Notes, Yield, Ingredient 1-30, Quantity 1-30, Instructions 1-30) (Future: Image, Calories, Allergens)
+
+## Extensions
+
+- Ability to upload and scrape the data automatically from an invoice, removing the need to input the data manually.
+- Metric/Imperial Converter
+
+## Logic
+
+//TODO
+
+## User Stories
+
+- As a chef, I want all my recipes in the same consistent format
+- As a business owner, I want all the recipes to be easy to cost, based off the current prices
+- As a budgeter, I want to be able to track the cost of my meals
+
+## MVP
+
+- Login/Signup Sessions
+- Database:
+    - Ingredients Table
+    - Users Table
+    - Recipes Table
+- Recipe Builder
