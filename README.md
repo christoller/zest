@@ -14,7 +14,6 @@ Users can create a pantry list of ingredients and their prices, which will be st
 
 ## **App Structure**
 
-- --
 
 ## Technologies To Use
 
@@ -52,7 +51,6 @@ Users can create a pantry list of ingredients and their prices, which will be st
 
 ## Logic
 
-//TODO
 
 ## User Stories
 
@@ -60,11 +58,6 @@ Users can create a pantry list of ingredients and their prices, which will be st
 - As a business owner, I want all the recipes to be easy to cost, based off the current prices
 - As a budgeter, I want to be able to track the cost of my meals
 
-## MVP
+## Installation Instructions
 
-- Login/Signup Sessions
-- Database:
-    - Ingredients Table
-    - Users Table
-    - Recipes Table
-- Recipe Builder
+
