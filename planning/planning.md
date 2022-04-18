@@ -1,8 +1,8 @@
-# Food Costly / WatchTheCost.ly
+# Zesty
 
 ## **What is it?**
 
-Food Costly is an recipe management app designed to help users design, cost and store recipes. The main feature of the app are:
+Zesty is an recipe management app designed to help users design, cost and store recipes. The main feature of the app are:
 
 ### **Recipe Builder**
 

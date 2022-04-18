@@ -1,37 +1,59 @@
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
-
 import express, { Request, Response } from "express";
+import { userRoutes, sessionRoutes } from './routes/index';
 import path from "path";
+
+const app = express();
+const cors = require("cors");
+const mongoose = require('mongoose')
+const session = require('express-session')
+const MongoStore = require('connect-mongo');
+
+( async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
+    console.log('MongoDB connected');
+
 
 const PORT =
     process.env.PORT || (process.env.NODE_ENV === "production" && 3000) || 3001;
-const app = express();
+
+
 
 app.set("trust proxy", 1);
-app.use(express.json()); // support json encoded bodies
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname))
+app.use(cors({
+  origin: '*',
+  methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
+  credentials: true
+}));
 
-app.get("/api/test", (req: Request<any, any, any, any>, res: Response<any>) => {
-    res.json({ date: new Date().toString() });
-});
+app.use(session({
+      name: process.env.SESSION_NAME,
+      secret: process.env.SESSION_SECRET,
+      saveUninitialized: false,
+      resave: false,
+      store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        collection: 'sessions',
+        ttl: parseInt(process.env.SESSION_LIFETIME) / 1000
+      }),
+      cookie: {
+        sameSite: true,
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 1000000
+      }
+    }));
 
-app.get("/api/hand", (req, res) => {
-    const cards = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
-    const suits = ['Spades', 'Diamonds', 'Clubs', 'Hearts'];
-    function random(array){
-        let random = Math.floor(Math.random() * array.length)
-        return array[random]
-    }
-    console.log('test')
-
-    res.json({
-        "cards": [
-            {"card": random(cards), "suit": random(suits)},
-            {"card": random(cards), "suit": random(suits)}
-        ]
-    })
-})
+// Set Routes
+const apiRouter = express.Router();
+    app.use('/api', apiRouter);
+    apiRouter.use('/users', userRoutes);
+    apiRouter.use('/sessions', sessionRoutes);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "..", "client", "build")));
@@ -46,3 +68,8 @@ if (process.env.NODE_ENV === "production") {
 app.listen(+PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
+
+  } catch (err) {
+    console.log(err)
+  }
+})();
