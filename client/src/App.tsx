@@ -63,7 +63,7 @@ function App() {
                     <Route path='recipes' element={<Recipes />} />
                     <Route path='pantry' element={<Pantry />} />
                     <Route path='help' element={<Help />} />
-                    <Route path='*' element={<p>Page not found! Oh NO!</p>} />
+                    <Route path='*' element={<p>404 Page not found</p>} />
                 </Routes>
             </BrowserRouter>
             <Footer />

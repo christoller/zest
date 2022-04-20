@@ -5,10 +5,11 @@ declare module 'express-session' {
   }
 }
 
+require('dotenv');
 import express from "express";
 const User = require('../models/userSchema')
 const bcrypt = require('bcrypt');
-require('dotenv');
+
 
 const sessionRouter = express.Router();
 
@@ -16,7 +17,6 @@ sessionRouter.post("/", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    console.log(user)
 
     if (user && bcrypt.compareSync(password, user.password)) {
         const sessionUser = {
@@ -25,7 +25,6 @@ sessionRouter.post("/", async (req, res) => {
     };
       req.session.user = sessionUser;
       res.send(req.session.user)
-      console.log(req.session)
     } else {
       throw new Error('Invalid login credentials');
     }
@@ -34,19 +33,6 @@ sessionRouter.post("/", async (req, res) => {
   }
 });
 
-// sessionRouter.delete("/", (req, res) => {
-//     const user = req.session.user;
-//     if (user) {
-
-//       req.session.destroy((err) => {
-//       res.redirect('/') // will always fire after session is destroyed
-//     })
-      
-//     } else {
-//       throw new Error('Something went wrong');
-//     }
-//   } 
-// );
 
 sessionRouter.post('/logout', (req, res, next) => {
   req.session.destroy(err => {
@@ -65,7 +51,6 @@ sessionRouter.get("/", async (req, res) => {
         });
       }  
     })
-
 
 
 export default sessionRouter;

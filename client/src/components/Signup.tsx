@@ -39,14 +39,10 @@ export function SignUp() {
             axios
                 .post('/api/users/', body)
                 .then((response) => {
-                    console.log({
-                        username: data.get('username'),
-                        email: data.get('email'),
-                        password: data.get('password'),
-                    });
+                    // todo
                 })
                 .catch((error) => {
-                    console.log(`There was an error ${error.response}`);
+                    console.log(`There was an error: ${error.response}`);
                 });
         } else {
             throw new Error(error);

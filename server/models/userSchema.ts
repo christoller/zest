@@ -14,7 +14,8 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    pantry: []
+    pantry: [],
+    recipes: []
 }, { timestamps: true });
 
 

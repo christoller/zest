@@ -11,6 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { EditIngredient } from './EditIngredient';
+import { keysrt } from '../functions/keysrt';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -73,16 +74,6 @@ export function Pantry() {
 
     function roundData(data: number, decimal: number) {
         return Math.round(data * Math.pow(10, decimal)) / Math.pow(10, decimal);
-    }
-
-    function keysrt(arr: any[], key: string) {
-        let sortOrder = 1;
-        return arr.sort(function (a, b) {
-            var x = a[key],
-                y = b[key];
-
-            return sortOrder * (x < y ? -1 : x > y ? 1 : 0);
-        });
     }
 
     keysrt(pantryList, 'ingredient').forEach((ingredient: any, index) => {

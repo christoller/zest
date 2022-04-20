@@ -10,7 +10,6 @@ pantryRoutes.patch('/:id/', async (req, res) => {
         _id: ObjectId(req.params.id),
     };
     const { ingredient, supplier, unitSize, costPerUnit, costPerGram } = req.body;
-    console.log(req.body)
 
     const pantryItem = {
                 ingredient: ingredient,
@@ -24,7 +23,6 @@ pantryRoutes.patch('/:id/', async (req, res) => {
       { _id: user._id}, 
       { $addToSet: {pantry: pantryItem }}
     ).then((result) => {
-            console.log(result);
             res.json({ status: 'ok' });
         });
 });
@@ -36,7 +34,6 @@ pantryRoutes.patch('/:id/edit', async (req, res) => {
 
     };
     const { ingredient, supplier, unitSize, costPerUnit, costPerGram } = req.body;
-    console.log(req.body)
 
     await User.findOneAndUpdate(
 
@@ -50,7 +47,6 @@ pantryRoutes.patch('/:id/edit', async (req, res) => {
         }})
     
     .then((result) => {
-            console.log(result)
             res.json({ status: 'ok' });
         });
 });
@@ -63,7 +59,6 @@ pantryRoutes.get('/:id/', async (req, res) => {
 
   await User.findById(user._id).then((result) => {
     res.send(result.pantry)
-    console.log(result.pantry)
   })
 })
 
@@ -72,12 +67,9 @@ pantryRoutes.patch('/:id/delete', async (req,res) => {
   const user = {
         _id: ObjectId(req.params.id),
     };
-
     const ingredient = req.body.ingredient;
 
-
     await User.findOneAndUpdate(
-
       { _id: user._id},      
       {$pull: 
         {
@@ -88,6 +80,6 @@ pantryRoutes.patch('/:id/delete', async (req,res) => {
             console.log(result)
             res.json({ status: 'ok' });
         });
-})
+  })
 
 export default pantryRoutes

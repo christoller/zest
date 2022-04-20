@@ -1,6 +1,5 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const ObjectId = require('mongodb').ObjectId;
 const User = require('../models/userSchema')
 
 const userRoutes = express.Router();
