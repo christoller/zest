@@ -21,42 +21,5 @@ userRoutes.post('/', async (req, res, next) => {
     }
 })
     
-// Add Items to Pantry
-userRoutes.patch('/:id/pantry', async (req, res) => {
-    const user = {
-        _id: ObjectId(req.params.id),
-    };
-    const { ingredient, supplier, unitSize, costPerUnit, costPerGram } = req.body;
-    console.log(req.body)
-
-    const pantryItem = {
-                ingredient: ingredient,
-                supplier: supplier,
-                unitSize: unitSize,
-                costPerUnit: costPerUnit,
-                costPerGram: costPerGram
-            }
-
-    await User.updateOne(
-      { _id: user._id}, 
-      { $addToSet: {pantry: pantryItem }}
-    ).then((result) => {
-            console.log(result);
-            res.json({ status: 'ok' });
-        });
-});
-
-// Show Pantry List
-userRoutes.get('/:id/pantry', async (req, res) => {
-  const user = {
-        _id: ObjectId(req.params.id),
-    };
-
-  await User.findById(user._id).then((result) => {
-    res.send(result.pantry)
-    // console.log(result.pantry)
-  })
-})
-
 
 export default userRoutes

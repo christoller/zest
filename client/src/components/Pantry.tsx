@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { Modal, Box, Typography } from '@mui/material';
+import { Modal, Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { AddIngredients } from './AddIngredients';
 import axios from 'axios';
@@ -10,6 +10,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { EditIngredient } from './EditIngredient';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -25,19 +26,28 @@ const style = {
 
 export function Pantry() {
     const [open, setOpen] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
+    const [ingredientKey, setIngredientKey] = useState();
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const handleOpenEdit = (e: any) => {
+        setOpenEdit(true);
+        setIngredientKey(e.target.getAttribute('ingredient-key'));
+    };
+    const handleCloseEdit = () => setOpenEdit(false);
     const id = sessionStorage.getItem('user_id');
 
     const [isLoading, setLoading] = useState(true);
     const [pantryList, setPantryList] = useState([]);
+    const rows: any[] = [];
 
     useEffect(() => {
-        axios.get(`/api/users/${id}/pantry`).then((response) => {
+        axios.get(`/api/pantry/${id}`).then((response) => {
+            console.log(response.data);
             setPantryList(response.data);
             setLoading(false);
         });
-    }, []);
+    }, [open, openEdit]);
 
     if (isLoading) {
         return <div className='App'>Loading...</div>;
@@ -51,18 +61,38 @@ export function Pantry() {
         costPerGram: number,
         index: number
     ) {
-        return { ingredient, supplier, unitSize, costPerUnit, costPerGram };
+        return {
+            ingredient,
+            supplier,
+            unitSize,
+            costPerUnit,
+            costPerGram,
+            index,
+        };
     }
-    const rows: any[] = [];
 
-    pantryList.forEach((ingredient: any, index) => {
+    function roundData(data: number, decimal: number) {
+        return Math.round(data * Math.pow(10, decimal)) / Math.pow(10, decimal);
+    }
+
+    function keysrt(arr: any[], key: string) {
+        let sortOrder = 1;
+        return arr.sort(function (a, b) {
+            var x = a[key],
+                y = b[key];
+
+            return sortOrder * (x < y ? -1 : x > y ? 1 : 0);
+        });
+    }
+
+    keysrt(pantryList, 'ingredient').forEach((ingredient: any, index) => {
         rows.push(
             createData(
                 ingredient.ingredient,
                 ingredient.supplier,
                 ingredient.unitSize,
-                ingredient.costPerUnit,
-                ingredient.costPerGram,
+                roundData(ingredient.costPerUnit, 4),
+                roundData(ingredient.costPerGram, 4),
                 index
             )
         );
@@ -91,15 +121,16 @@ export function Pantry() {
                                     Unit Size (g)
                                 </TableCell>
                                 <TableCell align='right'>
-                                    Cost Per Unit
+                                    Cost Per Unit ($)
                                 </TableCell>
                                 <TableCell align='right'>
-                                    Cost Per Gram
+                                    Cost Per Gram ($)
                                 </TableCell>
+                                <TableCell align='right'>Modify</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row) => (
+                            {rows.map((row: any) => (
                                 <TableRow
                                     key={row.index}
                                     sx={{
@@ -122,21 +153,31 @@ export function Pantry() {
                                     <TableCell align='right'>
                                         {row.costPerGram}
                                     </TableCell>
+                                    <TableCell align='right'>
+                                        <Button
+                                            variant='text'
+                                            ingredient-key={row.index}
+                                            onClick={handleOpenEdit}>
+                                            Edit
+                                        </Button>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
-                {/* {pantryList.map((ingredient: any) => {
-                    return (
-                        <div>
-                            <p>{ingredient.ingredient}</p>
-                            <p>{ingredient.supplier}</p>
-                            <p>{ingredient.unitSize}</p>
-                            <p>{ingredient.costPerUnit}</p>
-                        </div>
-                    );
-                })} */}
+                <Modal
+                    open={openEdit}
+                    onClose={handleCloseEdit}
+                    aria-labelledby='modal-modal-title'
+                    aria-describedby='modal-modal-description'>
+                    <Box sx={style}>
+                        <EditIngredient
+                            ingredientKey={ingredientKey}
+                            rows={rows}
+                        />
+                    </Box>
+                </Modal>
             </div>
         </div>
     );

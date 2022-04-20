@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,31 +9,63 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useState } from 'react';
+import { InputLabel } from '@mui/material';
 
 const theme = createTheme();
 
-export function AddIngredients() {
+export function EditIngredient(props: any) {
+    const id = sessionStorage.getItem('user_id');
+    const row = props.rows;
+    const ingredientKey = props.ingredientKey;
     const [error, setError] = useState<any>();
-
-    const [costPerUnit, setCostPerUnit] = useState<any>();
-    const [unitSize, setUnitSize] = useState<any>();
+    const { ingredient, supplier, costPerUnit, unitSize } = row[ingredientKey];
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        let fSupplier;
+        let fUnitSize;
+        let fCostPerUnit;
 
-        const costPerGram = parseFloat(costPerUnit) / parseFloat(unitSize);
+        if (data.get('supplier') === '') {
+            fSupplier = supplier;
+        } else fSupplier = data.get('supplier');
+
+        if (data.get('unitSize') === '') {
+            fUnitSize = unitSize;
+        } else fUnitSize = data.get('unitSize');
+
+        if (data.get('costPerUnit') === '') {
+            fCostPerUnit = costPerUnit;
+        } else fCostPerUnit = data.get('costPerUnit');
+
+        const costPerGram = parseFloat(fCostPerUnit) / parseFloat(fUnitSize);
+
         const ingredientData = {
-            ingredient: data.get('ingredient'),
-            supplier: data.get('supplier'),
-            unitSize: unitSize,
-            costPerUnit: data.get('costPerUnit'),
+            ingredient: ingredient,
+            supplier: fSupplier,
+            unitSize: fUnitSize,
+            costPerUnit: fCostPerUnit,
             costPerGram: costPerGram,
         };
-        console.log(ingredientData);
-        const id = sessionStorage.getItem('user_id');
+
         axios
-            .patch(`/api/pantry/${id}/`, ingredientData)
+            .patch(`/api/pantry/${id}/edit`, ingredientData)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const handleDelete = (e: any) => {
+        const ingredientToDelete = {
+            ingredient: ingredient,
+        };
+
+        axios
+            .patch(`/api/pantry/${id}/delete`, ingredientToDelete)
             .then((response) => {
                 console.log(response);
             })
@@ -58,7 +89,7 @@ export function AddIngredients() {
                         <Avatar
                             sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar>
                         <Typography component='h1' variant='h5'>
-                            Add Ingredient
+                            {ingredient}
                         </Typography>
                         {error ? (
                             <p style={{ color: 'red', fontWeight: 'bold' }}>
@@ -72,58 +103,58 @@ export function AddIngredients() {
                             sx={{ mt: 3 }}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
+                                    <InputLabel id='supplier-label'>
+                                        Supplier
+                                    </InputLabel>
                                     <TextField
-                                        name='ingredient'
-                                        required
-                                        fullWidth
-                                        id='ingredient'
-                                        label='Ingredient'
-                                        autoFocus
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
                                         fullWidth
                                         id='supplier'
-                                        label='Supplier'
+                                        label={supplier}
                                         name='supplier'
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
+                                    <InputLabel id='unit-size-label'>
+                                        Unit Size
+                                    </InputLabel>
                                     <TextField
-                                        required
                                         fullWidth
-                                        value={unitSize}
                                         id='unitSize'
-                                        label='Unit Size In Grams'
+                                        label={unitSize}
                                         name='unitSize'
-                                        onChange={(e: any) => {
-                                            setUnitSize(e.target.value);
-                                        }}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
+                                    <InputLabel id='cost-per-unit-label'>
+                                        Cost Per Unit
+                                    </InputLabel>
                                     <TextField
-                                        required
                                         fullWidth
                                         name='costPerUnit'
-                                        label='Cost Per Unit'
+                                        label={costPerUnit}
                                         type='text'
                                         id='costPerUnit'
-                                        onChange={(e: any) =>
-                                            setCostPerUnit(e.target.value)
-                                        }
                                     />
                                 </Grid>
                             </Grid>
-                            <Button
-                                type='submit'
-                                fullWidth
-                                variant='contained'
-                                sx={{ mt: 3, mb: 2 }}>
-                                Add Ingredient
-                            </Button>
+                            <div>
+                                <Button
+                                    type='submit'
+                                    fullWidth
+                                    variant='contained'
+                                    sx={{ mt: 3, mb: 2 }}>
+                                    Update
+                                </Button>
+                                <Button
+                                    type='submit'
+                                    fullWidth
+                                    variant='text'
+                                    sx={{ mt: 3, mb: 2 }}
+                                    onClick={handleDelete}>
+                                    Delete Ingredient
+                                </Button>
+                            </div>
+
                             <Grid container justifyContent='flex-end'></Grid>
                         </Box>
                     </Box>
