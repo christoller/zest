@@ -22,12 +22,29 @@ interface AutocompleteOption {
 const theme = createTheme();
 const id = sessionStorage.getItem('user_id');
 
-export function AddIngredientToRecipe() {
+export function AddIngredientToRecipe(props: any) {
     const [error, setError] = useState<any>();
-    const [pantryList, setPantryList] = useState([{ ingredient: '' }]);
+    const [pantryList, setPantryList] = useState([
+        { ingredient: '', costPerGram: '' },
+    ]);
+    const [amount, setAmount] = useState('');
 
-    const handleSubmit = (e: any) => {
-        //todo
+    const handleSubmit = async (event: any) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+
+        const pantryIngredient = await pantryList.filter((ingredient) => {
+            return ingredient.ingredient === data.get('ingredient');
+        });
+        const { ingredient, costPerGram } = pantryIngredient[0];
+        const ingredientCost = parseFloat(costPerGram) * parseFloat(amount);
+        const newRecipeIngredient = {
+            ingredient: ingredient,
+            amount: amount,
+            cost: ingredientCost,
+        };
+
+        props.setRecipeList([...props.recipeList, newRecipeIngredient]);
     };
 
     useEffect(() => {
@@ -67,7 +84,7 @@ export function AddIngredientToRecipe() {
                                 <Grid item xs={12}>
                                     <Autocomplete
                                         freeSolo
-                                        id='free-solo-2-demo'
+                                        id='ingredient'
                                         disableClearable
                                         options={keysrt(
                                             pantryList,
@@ -76,6 +93,7 @@ export function AddIngredientToRecipe() {
                                         renderInput={(params) => (
                                             <TextField
                                                 {...params}
+                                                name='ingredient'
                                                 label='Ingredient'
                                                 InputProps={{
                                                     ...params.InputProps,
@@ -89,6 +107,10 @@ export function AddIngredientToRecipe() {
                                     <TextField
                                         required
                                         fullWidth
+                                        value={amount}
+                                        onChange={(e: any) => {
+                                            setAmount(e.target.value);
+                                        }}
                                         id='amount'
                                         label='Amount in (g)'
                                         name='amount'
