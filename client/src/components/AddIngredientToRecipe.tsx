@@ -15,10 +15,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { keysrt } from '../functions/keysrt';
 
-interface AutocompleteOption {
-    label: string;
-}
-
 const theme = createTheme();
 const id = sessionStorage.getItem('user_id');
 
@@ -28,6 +24,7 @@ export function AddIngredientToRecipe(props: any) {
         { ingredient: '', costPerGram: '' },
     ]);
     const [amount, setAmount] = useState('');
+    const { recipeList, setRecipeList } = props;
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -44,7 +41,8 @@ export function AddIngredientToRecipe(props: any) {
             cost: ingredientCost,
         };
 
-        props.setRecipeList([...props.recipeList, newRecipeIngredient]);
+        setRecipeList([...recipeList, newRecipeIngredient]);
+        setAmount('');
     };
 
     useEffect(() => {

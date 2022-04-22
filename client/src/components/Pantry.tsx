@@ -101,7 +101,7 @@ export function Pantry() {
                     <AddIngredients />
                 </Box>
             </Modal>
-            <div className='pantry-table'>
+            <div className='table'>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                         <TableHead>

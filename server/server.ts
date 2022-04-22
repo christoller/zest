@@ -2,7 +2,7 @@ if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
 import express, { Request, Response } from "express";
-import { userRoutes, sessionRoutes, pantryRoutes} from './routes/index';
+import { userRoutes, sessionRoutes, pantryRoutes, recipeRoutes} from './routes/index';
 import path from "path";
 
 const app = express();
@@ -55,6 +55,7 @@ const apiRouter = express.Router();
     apiRouter.use('/users', userRoutes);
     apiRouter.use('/sessions', sessionRoutes);
     apiRouter.use('/pantry', pantryRoutes);
+    apiRouter.use('/recipes', recipeRoutes);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "..", "client", "build")));

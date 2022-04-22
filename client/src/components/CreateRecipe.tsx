@@ -1,15 +1,6 @@
-import { ThemeProvider } from '@emotion/react';
 import {
-    Container,
-    CssBaseline,
     Box,
-    Avatar,
-    Typography,
-    Grid,
-    TextField,
     Button,
-    createTheme,
-    Autocomplete,
     TableContainer,
     Paper,
     Table,
@@ -18,16 +9,13 @@ import {
     TableRow,
     TableBody,
     Modal,
+    Grid,
+    TextField,
 } from '@mui/material';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { keysrt } from '../functions/keysrt';
+import { useState } from 'react';
 import { AddIngredientToRecipe } from './AddIngredientToRecipe';
 import { AddRecipeStep } from './AddRecipeStep';
-
-interface AutocompleteOption {
-    label: string;
-}
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -41,30 +29,68 @@ const style = {
     p: 4,
 };
 
-const theme = createTheme();
-const id = sessionStorage.getItem('user_id');
-
 export function CreateRecipe() {
     const [error, setError] = useState<any>();
-    const [recipeList, setRecipeList] = useState([
-        { ingredient: 'Apples', amount: '1300', cost: '4.35' },
-    ]);
+    const [recipeList, setRecipeList] = useState<any>([]);
+    const [steps, setSteps] = useState<any>([]);
     const [openAddIngredient, setOpenAddIngredient] = useState(false);
     const [openAddStep, setOpenAddStep] = useState(false);
+    const [fieldValue, setFieldValue] = useState('');
+
     const handleOpenAddIngredient = (e: any) => {
         setOpenAddIngredient(true);
     };
     const handleOpenAddStep = (e: any) => {
         setOpenAddStep(true);
     };
-    const [steps, setSteps] = useState('Add A Step');
+
+    const handleRemoveIngredient = (e: any) => {
+        const indexKey = e.target.getAttribute('index-key');
+        const revisedRecipeList = recipeList;
+        revisedRecipeList.splice(indexKey, 1);
+        setRecipeList([...revisedRecipeList]);
+    };
 
     const handleSubmit = (e: any) => {
-        //todo
+        const id = sessionStorage.getItem('user_id');
+        const newRecipe = {
+            recipeName: fieldValue,
+            ingredients: recipeList,
+            steps: steps,
+        };
+        axios
+            .patch(`/api/recipes/${id}/`, newRecipe)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (
         <div>
+            <Box
+                component='form'
+                noValidate
+                onSubmit={handleSubmit}
+                sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <TextField
+                            required
+                            fullWidth
+                            id='recipe-name'
+                            label='Recipe Name'
+                            name='recipe-name'
+                            value={fieldValue}
+                            onChange={(e: any) => {
+                                setFieldValue(e.target.value);
+                            }}
+                        />
+                    </Grid>
+                </Grid>
+            </Box>
             <TableContainer component={Paper}>
                 <Table
                     sx={{ minWidth: 650 }}
@@ -75,10 +101,12 @@ export function CreateRecipe() {
                             <TableCell>Ingredient</TableCell>
                             <TableCell align='right'>Amount</TableCell>
                             <TableCell align='right'>Cost</TableCell>
+                            <TableCell align='right'></TableCell>
+                            <TableCell align='right'></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {recipeList.map((row) => (
+                        {recipeList.map((row: any, index: any) => (
                             <TableRow
                                 key={row.ingredient}
                                 sx={{
@@ -93,6 +121,17 @@ export function CreateRecipe() {
                                     {row.amount}
                                 </TableCell>
                                 <TableCell align='right'>{row.cost}</TableCell>
+                                <TableCell align='right'>
+                                    <Button variant='text'>edit</Button>
+                                </TableCell>
+                                <TableCell align='right'>
+                                    <Button
+                                        index-key={index}
+                                        variant='text'
+                                        onClick={handleRemoveIngredient}>
+                                        remove
+                                    </Button>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -105,9 +144,11 @@ export function CreateRecipe() {
                 onClick={handleOpenAddIngredient}>
                 Add Ingredient
             </Button>
-            <div>
-                <p>{steps}</p>
-            </div>
+            <ol>
+                {steps.map((step: any) => {
+                    return <li>{step.step}</li>;
+                })}
+            </ol>
             <Button
                 type='submit'
                 variant='text'
@@ -116,7 +157,11 @@ export function CreateRecipe() {
                 Add Step
             </Button>
             <br />
-            <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
+            <Button
+                type='submit'
+                variant='contained'
+                onClick={handleSubmit}
+                sx={{ mt: 3, mb: 2 }}>
                 Create Recipe
             </Button>
             <Modal
@@ -137,7 +182,7 @@ export function CreateRecipe() {
                 aria-labelledby='modal-modal-title'
                 aria-describedby='modal-modal-description'>
                 <Box sx={style}>
-                    <AddRecipeStep />
+                    <AddRecipeStep steps={steps} setSteps={setSteps} />
                 </Box>
             </Modal>
         </div>
