@@ -13,6 +13,7 @@ import {
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { CreateRecipe } from './CreateRecipe';
+import { DisplayRecipe } from './DisplayRecipe';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -28,21 +29,26 @@ const style = {
 
 export function Recipes() {
     const [open, setOpen] = useState(false);
+    const [openRecipe, setOpenRecipe] = useState(false);
+    const [selectedRecipe, setSelectedRecipe] = useState('');
     const [recipeList, setRecipeList] = useState([
         {
             recipeName: 'No Recipes Yet :(',
         },
     ]);
     const [isLoading, setLoading] = useState(true);
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const handleOpenRecipe = () => setOpenRecipe(true);
+    const handleCloseRecipe = () => setOpenRecipe(false);
     const id = sessionStorage.getItem('user_id');
 
     useEffect(() => {
         axios.get(`/api/recipes/${id}`).then((response) => {
-            console.log(response.data);
             setRecipeList(response.data);
             setLoading(false);
+            console.log(response.data);
         });
     }, [open]);
 
@@ -73,7 +79,14 @@ export function Recipes() {
                                         },
                                     }}>
                                     <TableCell component='th' scope='row'>
-                                        <Button variant='text'>
+                                        <Button
+                                            variant='text'
+                                            onClick={() => {
+                                                handleOpenRecipe();
+                                                setSelectedRecipe(
+                                                    recipe.recipeName
+                                                );
+                                            }}>
                                             {recipe.recipeName}
                                         </Button>
                                     </TableCell>
@@ -97,6 +110,18 @@ export function Recipes() {
                 aria-describedby='modal-modal-description'>
                 <Box sx={style}>
                     <CreateRecipe />
+                </Box>
+            </Modal>
+            <Modal
+                open={openRecipe}
+                onClose={handleCloseRecipe}
+                aria-labelledby='modal-modal-title'
+                aria-describedby='modal-modal-description'>
+                <Box sx={style}>
+                    <DisplayRecipe
+                        recipeList={recipeList}
+                        selectedRecipe={selectedRecipe}
+                    />
                 </Box>
             </Modal>
         </div>

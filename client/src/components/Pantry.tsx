@@ -12,6 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { EditIngredient } from './EditIngredient';
 import { keysrt } from '../functions/keysrt';
+import { roundData } from '../functions/roundData';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -72,10 +73,6 @@ export function Pantry() {
         };
     }
 
-    function roundData(data: number, decimal: number) {
-        return Math.round(data * Math.pow(10, decimal)) / Math.pow(10, decimal);
-    }
-
     keysrt(pantryList, 'ingredient').forEach((ingredient: any, index) => {
         rows.push(
             createData(
@@ -92,15 +89,6 @@ export function Pantry() {
     return (
         <div>
             <Button onClick={handleOpen}>Add Ingredient to Pantry</Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby='modal-modal-title'
-                aria-describedby='modal-modal-description'>
-                <Box sx={style}>
-                    <AddIngredients />
-                </Box>
-            </Modal>
             <div className='table'>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label='simple table'>
@@ -166,7 +154,17 @@ export function Pantry() {
                         <EditIngredient
                             ingredientKey={ingredientKey}
                             rows={rows}
+                            setOpenEdit={setOpenEdit}
                         />
+                    </Box>
+                </Modal>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby='modal-modal-title'
+                    aria-describedby='modal-modal-description'>
+                    <Box sx={style}>
+                        <AddIngredients setOpen={setOpen} />
                     </Box>
                 </Modal>
             </div>

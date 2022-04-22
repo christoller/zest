@@ -45,3 +45,25 @@
   width: 80%;
   margin: 0 auto;
 }
+
+@media print {
+  @page {
+    size: portrait;
+  }
+  body * {
+    visibility: hidden;
+  }
+  .MuiBackdrop-root {
+    display: none;
+  }
+  .section-to-print, .section-to-print * {
+    visibility: visible;
+  }
+  .section-to-print {
+    height: 1000px;
+    width: 700px;
+    position: absolute;
+    left: 500;
+    top: 0;
+  }
+}

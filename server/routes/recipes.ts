@@ -10,12 +10,13 @@ recipeRoutes.patch('/:id/', async (req, res) => {
     const user = {
         _id: ObjectId(req.params.id),
     };
-    const { recipeName, ingredients, steps } = req.body;
+    const { recipeName, ingredients, steps, cost } = req.body;
 
     const recipe = {
                 recipeName: recipeName,
                 ingredients: ingredients,
-                steps: steps
+                steps: steps,
+                cost: cost
             }
 
     await User.updateOne(

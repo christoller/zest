@@ -53,10 +53,20 @@ export function CreateRecipe() {
 
     const handleSubmit = (e: any) => {
         const id = sessionStorage.getItem('user_id');
+
+        const calculateCost = () => {
+            let cost = 0;
+            recipeList.forEach((ingredient: any) => {
+                cost += ingredient.cost;
+            });
+            return cost;
+        };
+
         const newRecipe = {
             recipeName: fieldValue,
             ingredients: recipeList,
             steps: steps,
+            cost: calculateCost(),
         };
         axios
             .patch(`/api/recipes/${id}/`, newRecipe)

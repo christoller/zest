@@ -57,6 +57,7 @@ export function EditIngredient(props: any) {
             .catch((error) => {
                 console.log(error);
             });
+        props.setOpenEdit(false);
     };
 
     const handleDelete = (e: any) => {
@@ -152,6 +153,12 @@ export function EditIngredient(props: any) {
                                     sx={{ mt: 3, mb: 2 }}
                                     onClick={handleDelete}>
                                     Delete Ingredient
+                                </Button>
+                                <Button
+                                    variant='text'
+                                    fullWidth
+                                    onClick={() => props.setOpenEdit(false)}>
+                                    Close
                                 </Button>
                             </div>
 

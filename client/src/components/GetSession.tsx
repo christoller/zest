@@ -1,23 +1,18 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 export function GetSession() {
+    const id = sessionStorage.getItem('user');
     const [session, setSession] = useState('');
+
     useEffect(() => {
-        axios
-            .get('/api/sessions/')
-            .then((response) => {
-                setSession(`Hello ${response.data}!`);
-                return response.data;
-            })
-            .catch((error) => {
-                return error;
-            });
+        if (id) {
+            setSession(id);
+        }
     }, []);
 
     return (
         <div>
-            <p>{session}</p>
+            <p>Hello {session}!</p>
         </div>
     );
 }

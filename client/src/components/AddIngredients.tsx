@@ -13,7 +13,7 @@ import { useState } from 'react';
 
 const theme = createTheme();
 
-export function AddIngredients() {
+export function AddIngredients(props: any) {
     const [error, setError] = useState<any>();
 
     const [costPerUnit, setCostPerUnit] = useState<any>();
@@ -41,6 +41,7 @@ export function AddIngredients() {
             .catch((error) => {
                 console.log(error);
             });
+        props.setOpen(false);
     };
 
     return (
@@ -123,6 +124,12 @@ export function AddIngredients() {
                                 variant='contained'
                                 sx={{ mt: 3, mb: 2 }}>
                                 Add Ingredient
+                            </Button>
+                            <Button
+                                variant='text'
+                                fullWidth
+                                onClick={() => props.setOpen(false)}>
+                                Close
                             </Button>
                             <Grid container justifyContent='flex-end'></Grid>
                         </Box>
