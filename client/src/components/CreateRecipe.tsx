@@ -29,7 +29,7 @@ const style = {
     p: 4,
 };
 
-export function CreateRecipe() {
+export function CreateRecipe(props: any) {
     const [error, setError] = useState<any>();
     const [recipeList, setRecipeList] = useState<any>([]);
     const [steps, setSteps] = useState<any>([]);
@@ -76,6 +76,7 @@ export function CreateRecipe() {
             .catch((error) => {
                 console.log(error);
             });
+        props.setOpen(false);
     };
 
     return (
@@ -89,7 +90,6 @@ export function CreateRecipe() {
                     <Grid item xs={12}>
                         <TextField
                             required
-                            fullWidth
                             id='recipe-name'
                             label='Recipe Name'
                             name='recipe-name'
@@ -183,6 +183,7 @@ export function CreateRecipe() {
                     <AddIngredientToRecipe
                         recipeList={recipeList}
                         setRecipeList={setRecipeList}
+                        setOpenAddIngredient={setOpenAddIngredient}
                     />
                 </Box>
             </Modal>
@@ -192,7 +193,11 @@ export function CreateRecipe() {
                 aria-labelledby='modal-modal-title'
                 aria-describedby='modal-modal-description'>
                 <Box sx={style}>
-                    <AddRecipeStep steps={steps} setSteps={setSteps} />
+                    <AddRecipeStep
+                        steps={steps}
+                        setSteps={setSteps}
+                        setOpenAddStep={setOpenAddStep}
+                    />
                 </Box>
             </Modal>
         </div>

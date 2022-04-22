@@ -13,12 +13,15 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
-export function Login() {
+export function Login(props: any) {
     const [error, setError] = useState<any>();
     const [loggedIn, setLoggedIn] = useState<any>();
+    let navigate = useNavigate();
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -46,10 +49,12 @@ export function Login() {
                         'user'
                     )}, You are now logged in.`
                 );
-                console.log(response.data.id);
+                props.setAuth(true);
+                navigate('/');
             })
             .catch((error: any) => {
                 console.log(`There was an error ${error}`);
+                setError(error.message);
             });
     };
 

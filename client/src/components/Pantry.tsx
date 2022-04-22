@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import { EditIngredient } from './EditIngredient';
 import { keysrt } from '../functions/keysrt';
 import { roundData } from '../functions/roundData';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -26,7 +27,15 @@ const style = {
     p: 4,
 };
 
-export function Pantry() {
+export function Pantry(props: any) {
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        if (!props.auth) {
+            navigate('/login');
+        }
+    }, [props.auth, navigate]);
+
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
     const [ingredientKey, setIngredientKey] = useState();
@@ -44,12 +53,14 @@ export function Pantry() {
     const rows: any[] = [];
 
     useEffect(() => {
-        axios.get(`/api/pantry/${id}`).then((response) => {
-            console.log(response.data);
-            setPantryList(response.data);
-            setLoading(false);
-        });
-    }, [open, openEdit]);
+        if (props.auth) {
+            axios.get(`/api/pantry/${id}`).then((response) => {
+                console.log(response.data);
+                setPantryList(response.data);
+                setLoading(false);
+            });
+        }
+    }, [open, openEdit, id, props.auth]);
 
     if (isLoading) {
         return <div className='App'>Loading...</div>;

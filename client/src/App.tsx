@@ -6,16 +6,17 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { About } from './components/About';
 import { Home } from './components/Home';
-import { LoggedIn } from './loggedIn';
 import { Logout } from './components/Logout';
 import { Recipes } from './components/Recipes';
 import { Pantry } from './components/Pantry';
 import { Help } from './components/Help';
+import { useState } from 'react';
 
 function App() {
+    const [auth, setAuth] = useState(false);
     return (
         <div className='App'>
-            <Header />
+            <Header auth={auth} />
             <BrowserRouter>
                 <nav className='nav-bar'>
                     <ul className='nav-bar-list'>
@@ -25,7 +26,7 @@ function App() {
                         <li>
                             <Link to='/about'>About</Link>
                         </li>
-                        {LoggedIn() ? (
+                        {auth ? (
                             <div className='nav-links'>
                                 <li>
                                     <Link to='/recipes'>Recipes</Link>
@@ -57,11 +58,17 @@ function App() {
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='about' element={<About />} />
-                    <Route path='logout' element={<Logout />} />
-                    <Route path='login' element={<Login />} />
-                    <Route path='signup' element={<SignUp />} />
-                    <Route path='recipes' element={<Recipes />} />
-                    <Route path='pantry' element={<Pantry />} />
+                    <Route
+                        path='logout'
+                        element={<Logout setAuth={setAuth} />}
+                    />
+                    <Route path='login' element={<Login setAuth={setAuth} />} />
+                    <Route
+                        path='signup'
+                        element={<SignUp setAuth={setAuth} />}
+                    />
+                    <Route path='recipes' element={<Recipes auth={auth} />} />
+                    <Route path='pantry' element={<Pantry auth={auth} />} />
                     <Route path='help' element={<Help />} />
                     <Route path='*' element={<p>404 Page not found</p>} />
                 </Routes>

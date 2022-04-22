@@ -6,6 +6,7 @@ const pantryRoutes = express.Router();
 
 // Add Items to Pantry
 pantryRoutes.patch('/:id/', async (req, res) => {
+  if(req.session.user.id === req.params.id){
     const user = {
         _id: ObjectId(req.params.id),
     };
@@ -25,10 +26,12 @@ pantryRoutes.patch('/:id/', async (req, res) => {
     ).then((result) => {
             res.json({ status: 'ok' });
         });
+      }
 });
 
 // Update Items in Pantry
 pantryRoutes.patch('/:id/edit', async (req, res) => {
+  if(req.session.user.id === req.params.id){
     const user = {
         _id: ObjectId(req.params.id),
 
@@ -49,10 +52,12 @@ pantryRoutes.patch('/:id/edit', async (req, res) => {
     .then((result) => {
             res.json({ status: 'ok' });
         });
+      }
 });
 
 // Show Pantry List
 pantryRoutes.get('/:id/', async (req, res) => {
+  if(req.session.user.id === req.params.id){
   const user = {
         _id: ObjectId(req.params.id),
     };
@@ -60,10 +65,12 @@ pantryRoutes.get('/:id/', async (req, res) => {
   await User.findById(user._id).then((result) => {
     res.send(result.pantry)
   })
+}
 })
 
 // Delete Item From Pantry List
 pantryRoutes.patch('/:id/delete', async (req,res) => {
+  if(req.session.user.id === req.params.id){
   const user = {
         _id: ObjectId(req.params.id),
     };
@@ -79,7 +86,11 @@ pantryRoutes.patch('/:id/delete', async (req,res) => {
     .then((result) => {
             console.log(result)
             res.json({ status: 'ok' });
-        });
+        })
+    .catch((error) => {
+      console.log(error)
+    });
+  }
   })
-
+  
 export default pantryRoutes

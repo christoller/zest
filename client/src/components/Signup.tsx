@@ -11,11 +11,13 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
-export function SignUp() {
+export function SignUp(props: any) {
     const [error, setError] = useState<any>();
+    let navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -39,10 +41,14 @@ export function SignUp() {
             axios
                 .post('/api/users/', body)
                 .then((response) => {
-                    // todo
+                    props.setAuth(true);
+                    navigate('/');
                 })
                 .catch((error) => {
-                    console.log(`There was an error: ${error.response}`);
+                    // setError(error.response.data.message);
+                    console.log(
+                        `There was an error: ${error.response.data.message}`
+                    );
                 });
         } else {
             throw new Error(error);

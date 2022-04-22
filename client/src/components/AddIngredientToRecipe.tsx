@@ -43,6 +43,7 @@ export function AddIngredientToRecipe(props: any) {
 
         setRecipeList([...recipeList, newRecipeIngredient]);
         setAmount('');
+        props.setOpenAddIngredient(false);
     };
 
     useEffect(() => {

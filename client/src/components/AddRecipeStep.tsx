@@ -29,7 +29,7 @@ export function AddRecipeStep(props: any) {
         };
         setSteps([...steps, newStep]);
         setFieldValue('');
-        console.log(steps);
+        props.setOpenAddStep(false);
     };
 
     return (
