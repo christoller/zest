@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export function GetSession(props: any) {
-    const id = sessionStorage.getItem('user');
+    const id = localStorage.getItem('user');
     const [session, setSession] = useState('');
     const auth = props.auth;
 
@@ -9,7 +9,7 @@ export function GetSession(props: any) {
         if (id) {
             setSession(id);
         }
-    }, [id]);
+    }, [id, auth]);
 
     if (!auth) {
         return (

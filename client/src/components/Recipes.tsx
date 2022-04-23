@@ -29,14 +29,7 @@ const style = {
 };
 
 export function Recipes(props: any) {
-    let navigate = useNavigate();
-
-    useEffect(() => {
-        if (!props.auth) {
-            navigate('/login');
-        }
-    }, [props.auth, navigate]);
-
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [openRecipe, setOpenRecipe] = useState(false);
     const [selectedRecipe, setSelectedRecipe] = useState('');
@@ -51,7 +44,7 @@ export function Recipes(props: any) {
     const handleClose = () => setOpen(false);
     const handleOpenRecipe = () => setOpenRecipe(true);
     const handleCloseRecipe = () => setOpenRecipe(false);
-    const id = sessionStorage.getItem('user_id');
+    const id = localStorage.getItem('user_id');
 
     useEffect(() => {
         if (props.auth) {
@@ -59,8 +52,10 @@ export function Recipes(props: any) {
                 setRecipeList(response.data);
                 setLoading(false);
             });
+        } else {
+            navigate('/login');
         }
-    }, [open, recipeList, id, props.auth]);
+    }, [open, recipeList, props.auth, id, navigate]);
 
     const handleDelete = (e: any) => {
         const recipeToDelete = {

@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react';
 import { keysrt } from '../functions/keysrt';
 
 const theme = createTheme();
-const id = sessionStorage.getItem('user_id');
+const id = localStorage.getItem('user_id');
 
 export function AddIngredientToRecipe(props: any) {
     const [error, setError] = useState<any>();

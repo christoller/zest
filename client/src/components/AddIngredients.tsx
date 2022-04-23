@@ -32,7 +32,7 @@ export function AddIngredients(props: any) {
             costPerGram: costPerGram,
         };
         console.log(ingredientData);
-        const id = sessionStorage.getItem('user_id');
+        const id = localStorage.getItem('user_id');
         axios
             .patch(`/api/pantry/${id}/`, ingredientData)
             .then((response) => {

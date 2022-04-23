@@ -14,7 +14,7 @@ import { InputLabel } from '@mui/material';
 const theme = createTheme();
 
 export function EditIngredient(props: any) {
-    const id = sessionStorage.getItem('user_id');
+    const id = localStorage.getItem('user_id');
     const row = props.rows;
     const ingredientKey = props.ingredientKey;
     const [error, setError] = useState<any>();

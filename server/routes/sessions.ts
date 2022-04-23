@@ -43,8 +43,8 @@ sessionRouter.post('/logout', (req, res, next) => {
 
 sessionRouter.get("/", async (req, res) => {
     if(req.session.user){
-        let userId = req.session.user
-        res.send(userId.username)
+        let userId = req.session.user.id
+        res.send(userId)
     } else {
         res.status(401).json({
             message: 'Not logged in',

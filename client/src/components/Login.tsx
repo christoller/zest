@@ -42,10 +42,10 @@ export function Login(props: any) {
                 withCredentials: true,
             })
             .then((response: any) => {
-                sessionStorage.setItem('user', response.data.username);
-                sessionStorage.setItem('user_id', response.data.id);
+                localStorage.setItem('user', response.data.username);
+                localStorage.setItem('user_id', response.data.id);
                 setLoggedIn(
-                    `Welcome ${sessionStorage.getItem(
+                    `Welcome ${localStorage.getItem(
                         'user'
                     )}, You are now logged in.`
                 );
@@ -155,7 +155,7 @@ export function Login(props: any) {
                                     </Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href='#' variant='body2'>
+                                    <Link href='/signup' variant='body2'>
                                         {"Don't have an account? Sign Up"}
                                     </Link>
                                 </Grid>

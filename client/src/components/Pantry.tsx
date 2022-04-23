@@ -46,7 +46,7 @@ export function Pantry(props: any) {
         setIngredientKey(e.target.getAttribute('ingredient-key'));
     };
     const handleCloseEdit = () => setOpenEdit(false);
-    const id = sessionStorage.getItem('user_id');
+    const id = localStorage.getItem('user_id');
 
     const [isLoading, setLoading] = useState(true);
     const [pantryList, setPantryList] = useState([]);

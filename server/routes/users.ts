@@ -7,7 +7,6 @@ const User = require('../models/userSchema')
 const userRoutes = express.Router();
 
 userRoutes.post('/', userCreateValidator, async (req, res, next) => {
-    console.log(req.body.username)
      try {
       let password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync())
       const user = new User({
@@ -16,6 +15,7 @@ userRoutes.post('/', userCreateValidator, async (req, res, next) => {
         email: req.body.email
       })
       await user.save()
+      res.json({ status: 'ok' })
        
     } catch (err) {
         res.status(400).json({ message: err.message })

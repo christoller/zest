@@ -52,7 +52,7 @@ export function CreateRecipe(props: any) {
     };
 
     const handleSubmit = (e: any) => {
-        const id = sessionStorage.getItem('user_id');
+        const id = localStorage.getItem('user_id');
 
         const calculateCost = () => {
             let cost = 0;

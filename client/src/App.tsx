@@ -11,9 +11,22 @@ import { Recipes } from './components/Recipes';
 import { Pantry } from './components/Pantry';
 import { Help } from './components/Help';
 import { useState } from 'react';
+import { vertifySession } from './functions/vertifySession';
+import axios from 'axios';
 
 function App() {
-    const [auth, setAuth] = useState(false);
+    const [auth, setAuth] = useState<boolean>();
+    const [sessionData, setSessionData] = useState();
+
+    axios.get('/api/sessions').then((response: any) => {
+        if (response.data == localStorage.getItem('user_id')) {
+            setAuth(true);
+            setSessionData(response.data);
+        } else {
+            setAuth(false);
+        }
+    });
+
     return (
         <div className='App'>
             <Header auth={auth} />
@@ -67,7 +80,16 @@ function App() {
                         path='signup'
                         element={<SignUp setAuth={setAuth} />}
                     />
-                    <Route path='recipes' element={<Recipes auth={auth} />} />
+                    <Route
+                        path='recipes'
+                        element={
+                            <Recipes
+                                auth={auth}
+                                setAuth={setAuth}
+                                sessionData={sessionData}
+                            />
+                        }
+                    />
                     <Route path='pantry' element={<Pantry auth={auth} />} />
                     <Route path='help' element={<Help />} />
                     <Route path='*' element={<p>404 Page not found</p>} />

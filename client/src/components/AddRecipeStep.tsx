@@ -13,7 +13,7 @@ import {
 import { useState } from 'react';
 
 const theme = createTheme();
-const id = sessionStorage.getItem('user_id');
+const id = localStorage.getItem('user_id');
 
 export function AddRecipeStep(props: any) {
     const [error, setError] = useState<any>();
