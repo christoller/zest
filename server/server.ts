@@ -13,7 +13,7 @@ const MongoStore = require('connect-mongo');
 
 ( async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
+    await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
     console.log('MongoDB connected');
 
 
@@ -38,7 +38,7 @@ app.use(session({
       saveUninitialized: false,
       resave: false,
       store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URI,
+        mongoUrl: process.env.MONGODB_URI,
         collection: 'sessions',
         ttl: parseInt(process.env.SESSION_LIFETIME) / 1000
       }),
