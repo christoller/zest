@@ -1,27 +1,26 @@
 import './App.css';
 import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
-import { Login } from './components/Login';
-import { SignUp } from './components/Signup';
+import { Login } from './components/sessions/Login';
+import { SignUp } from './components/sessions/Signup';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { About } from './components/About';
 import { Home } from './components/Home';
-import { Logout } from './components/Logout';
-import { Recipes } from './components/Recipes';
-import { Pantry } from './components/Pantry';
+import { Logout } from './components/sessions/Logout';
+import { Recipes } from './components/recipes/Recipes';
+import { Pantry } from './components/pantry/Pantry';
 import { Help } from './components/Help';
 import { useState } from 'react';
-import { vertifySession } from './functions/vertifySession';
 import axios from 'axios';
+import { NavBar } from './components/NavBar';
+import { Dashboard } from './components/Dashboard';
 
 function App() {
     const [auth, setAuth] = useState<boolean>();
-    const [sessionData, setSessionData] = useState();
 
     axios.get('/api/sessions').then((response: any) => {
-        if (response.data == localStorage.getItem('user_id')) {
+        if (response.data === localStorage.getItem('user_id')) {
             setAuth(true);
-            setSessionData(response.data);
         } else {
             setAuth(false);
         }
@@ -29,47 +28,15 @@ function App() {
 
     return (
         <div className='App'>
-            <Header auth={auth} />
             <BrowserRouter>
-                <nav className='nav-bar'>
-                    <ul className='nav-bar-list'>
-                        <li>
-                            <Link to='/'>Home</Link>
-                        </li>
-                        <li>
-                            <Link to='/about'>About</Link>
-                        </li>
-                        {auth ? (
-                            <div className='nav-links'>
-                                <li>
-                                    <Link to='/recipes'>Recipes</Link>
-                                </li>
-                                <li>
-                                    <Link to='/pantry'>Pantry</Link>
-                                </li>
-                                <li>
-                                    <Link to='/help'>Help</Link>
-                                </li>
-                                <li>
-                                    <Link to='/logout'>Logout</Link>
-                                </li>
-                            </div>
-                        ) : (
-                            <div className='nav-links'>
-                                <li>
-                                    <Link to='/login'>Login</Link>
-                                </li>
-
-                                <li>
-                                    <Link to='/signup'>Signup</Link>
-                                </li>
-                            </div>
-                        )}
-                    </ul>
-                </nav>
-
+                <Header auth={auth} />
+                {/* <NavBar auth={auth} /> */}
                 <Routes>
                     <Route path='/' element={<Home />} />
+                    <Route
+                        path='dashboard'
+                        element={<Dashboard auth={auth} />}
+                    />
                     <Route path='about' element={<About />} />
                     <Route
                         path='logout'
@@ -80,16 +47,7 @@ function App() {
                         path='signup'
                         element={<SignUp setAuth={setAuth} />}
                     />
-                    <Route
-                        path='recipes'
-                        element={
-                            <Recipes
-                                auth={auth}
-                                setAuth={setAuth}
-                                sessionData={sessionData}
-                            />
-                        }
-                    />
+                    <Route path='recipes' element={<Recipes auth={auth} />} />
                     <Route path='pantry' element={<Pantry auth={auth} />} />
                     <Route path='help' element={<Help />} />
                     <Route path='*' element={<p>404 Page not found</p>} />

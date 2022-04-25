@@ -1,11 +1,10 @@
-import { GetSession } from './GetSession';
+import { NavBar } from './NavBar';
+import { GetSession } from './sessions/GetSession';
 
 export function Header(props: any) {
     return (
-        <div>
-            <h1>Zesty</h1>
-            <h3>Recipe Costing and Management System</h3>
-            <GetSession auth={props.auth} />
+        <div className='mb-12'>
+            <NavBar />
         </div>
     );
 }
