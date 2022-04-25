@@ -55,7 +55,7 @@ const userCreateValidator = async (req, res, next) => {
             message: 'Password must contain a number.',
         });
     }
-    // AWAIT SOLUTION TO ASYNC ISSUE
+   
     if (await User.findOne({username: username})) {
         return res.status(422).json({
             message: 'That username is already taken.',

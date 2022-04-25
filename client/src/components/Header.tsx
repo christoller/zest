@@ -3,7 +3,7 @@ import { GetSession } from './sessions/GetSession';
 
 export function Header(props: any) {
     return (
-        <div className='mb-12'>
+        <div className=''>
             <NavBar />
         </div>
     );
