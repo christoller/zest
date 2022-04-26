@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -35,6 +33,7 @@ export function Login(props: any) {
             email: data.get('email'),
             password: data.get('password'),
         };
+
         axios
             .post('/api/sessions', body, {
                 headers: {
@@ -54,8 +53,7 @@ export function Login(props: any) {
                 navigate('/dashboard');
             })
             .catch((error: any) => {
-                console.log(`There was an error ${error}`);
-                setError(error.message);
+                setError(error.response.data.message);
             });
     };
 
@@ -85,6 +83,7 @@ export function Login(props: any) {
                                 : t.palette.grey[900],
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
+                        borderRadius: '10px 0 0 10px',
                     }}
                 />
                 <Grid
@@ -94,7 +93,8 @@ export function Login(props: any) {
                     md={5}
                     component={Paper}
                     elevation={6}
-                    square>
+                    square
+                    sx={{ borderRadius: '0 10px 10px 0' }}>
                     <Box
                         sx={{
                             my: 8,
@@ -139,15 +139,6 @@ export function Login(props: any) {
                                 type='password'
                                 id='password'
                                 autoComplete='current-password'
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        value='remember'
-                                        color='primary'
-                                    />
-                                }
-                                label='Remember me'
                             />
                             <Button
                                 type='submit'

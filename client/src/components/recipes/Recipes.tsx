@@ -21,7 +21,8 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 900,
+    width: '85%',
+    height: '95%',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -51,7 +52,7 @@ export function Recipes(props: any) {
                 setLoading(false);
             });
         }
-    }, [open, recipeList]);
+    }, [open]);
 
     const handleDelete = (e: any) => {
         const recipeToDelete = {
@@ -74,7 +75,7 @@ export function Recipes(props: any) {
     }
     if (id) {
         return (
-            <div className='bg-white sm:w-4/5 lg:w-8/12 mx-auto p-10 rounded-xl shadow-2xl shadow-black'>
+            <div className='bg-white sm:w-4/5 lg:w-8/12 mt-5 mx-auto p-10 rounded-xl shadow-2xl shadow-black'>
                 <h1 className='text-5xl font-bold'>Recipes</h1>
                 <Button onClick={handleOpen} sx={{ mx: 'auto', mt: 2 }}>
                     Create Recipe

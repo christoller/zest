@@ -39,10 +39,10 @@
     visibility: visible;
   }
   .section-to-print {
-    height: 1000px;
+    /* height: 1000px;
     width: 700px;
     position: absolute;
     left: 500;
-    top: 0;
+    top: 0; */
   }
 }

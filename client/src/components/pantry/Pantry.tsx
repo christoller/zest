@@ -47,7 +47,6 @@ export function Pantry(props: any) {
     useEffect(() => {
         if (id) {
             axios.get(`/api/pantry/${id}`).then((response) => {
-                console.log(response.data);
                 setPantryList(response.data);
                 setLoading(false);
             });
@@ -73,7 +72,7 @@ export function Pantry(props: any) {
 
     if (id) {
         return (
-            <div className='bg-white md:3/4 lg:w-8/12 mx-auto p-10 rounded-xl shadow-2xl shadow-black'>
+            <div className='bg-white md:3/4 lg:w-8/12 mt-5 mx-auto p-10 rounded-xl shadow-2xl shadow-black'>
                 <h1 className='text-5xl font-bold'>Pantry</h1>
                 <Button onClick={handleOpen} sx={{ mx: 'auto', mt: 2 }}>
                     Add Ingredient to Pantry

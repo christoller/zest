@@ -154,7 +154,7 @@ export function CreateRecipe(props: any) {
                 onClick={handleOpenAddIngredient}>
                 Add Ingredient
             </Button>
-            <ol>
+            <ol className='list-decimal'>
                 {steps.map((step: any) => {
                     return <li>{step.step}</li>;
                 })}

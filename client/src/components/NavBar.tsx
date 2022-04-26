@@ -1,11 +1,9 @@
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { Fragment, useEffect, useState } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import { Button, styled, withStyles } from '@mui/material';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Disclosure } from '@headlessui/react';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { Button, styled } from '@mui/material';
 import logo from '../assets/logo.png';
-import logoImage from '../assets/logo-image.png';
-import ZEST_ from '../assets/ZEST_.png';
 
 function classNames(...classes: any) {
     return classes.filter(Boolean).join(' ');

@@ -14,6 +14,11 @@ const bcrypt = require('bcrypt');
 const sessionRouter = express.Router();
 
 sessionRouter.post("/", async (req, res) => {
+  function incorrectResponse(res) {
+        res.status(400).json({
+            message: 'Incorrect username or password',
+        });
+    }
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -22,14 +27,14 @@ sessionRouter.post("/", async (req, res) => {
         const sessionUser = {
             id: user.id,
             username: user.username,
-    };
+    } ;
       req.session.user = sessionUser;
       res.send(req.session.user)
     } else {
-      throw new Error('Invalid login credentials');
+      incorrectResponse(res)
     }
   } catch (err) {
-    res.status(401).send(err);
+    incorrectResponse(res)
   }
 });
 

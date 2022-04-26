@@ -18,17 +18,44 @@ export function DisplayRecipe(props: any) {
     const { recipeName, ingredients, steps, cost } = recipeToDisplay[0];
 
     return (
-        <div className='section-to-print'>
-            <Typography>{recipeName}</Typography>
-            <TableContainer component={Paper}>
-                <Table
-                    sx={{ minWidth: 650 }}
-                    size='small'
-                    aria-label='a dense table'>
+        <div className='mx-20 mt-10 section-to-print'>
+            <Typography
+                sx={{
+                    textAlign: 'center',
+                    paddingTop: '2%',
+                    fontSize: '3rem',
+                    fontFamily: 'serif',
+                    fontWeight: 900,
+                    marginBottom: '30px',
+                }}>
+                {recipeName}
+            </Typography>
+            <Typography
+                sx={{
+                    textAlign: 'left',
+                    paddingTop: '2%',
+                    fontSize: '1.5rem',
+                    fontWeight: 900,
+                    // marginBottom: '15px',
+                }}>
+                Ingredients
+            </Typography>
+            <div className='border border-black h-0 w-44 my-1'></div>
+            <TableContainer
+                component={Paper}
+                sx={{ width: '100%', marginTop: '20px' }}>
+                <Table size='small' aria-label='a dense table'>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Ingredients</TableCell>
-                            <TableCell align='right'>Cost</TableCell>
+                            <TableCell
+                                sx={{ fontSize: '1rem', fontWeight: '700' }}>
+                                Ingredients
+                            </TableCell>
+                            <TableCell
+                                align='right'
+                                sx={{ fontSize: '1rem', fontWeight: '700' }}>
+                                Cost
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -40,17 +67,30 @@ export function DisplayRecipe(props: any) {
                                         border: 0,
                                     },
                                 }}>
-                                <TableCell component='th' scope='row'>
+                                <TableCell
+                                    component='th'
+                                    scope='row'
+                                    sx={{
+                                        fontSize: '1rem',
+                                        fontWeight: '700',
+                                    }}>
                                     {ingredient.amount}g {ingredient.ingredient}
                                 </TableCell>
-                                <TableCell align='right'>
+                                <TableCell
+                                    align='right'
+                                    sx={{
+                                        fontSize: '1rem',
+                                        fontWeight: '700',
+                                    }}>
                                     {ingredient.cost}
                                 </TableCell>
                             </TableRow>
                         ))}
                         <TableRow>
                             <TableCell align='right'></TableCell>
-                            <TableCell align='right'>
+                            <TableCell
+                                align='right'
+                                sx={{ fontSize: '1rem', fontWeight: '700' }}>
                                 {cost
                                     ? `Total Cost: ${roundData(cost, 2)}`
                                     : 'N/A'}
@@ -59,9 +99,28 @@ export function DisplayRecipe(props: any) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Typography>Steps:</Typography>
-            <ol>
-                {steps ? steps.map((step: any) => <li>{step.step}</li>) : null}
+            <Typography
+                sx={{
+                    textAlign: 'left',
+                    paddingTop: '2%',
+                    fontSize: '1.5rem',
+                    fontWeight: 900,
+                    // marginBottom: '10px',
+                }}>
+                Recipe Method
+            </Typography>
+            <div className='border border-black h-0 w-44 my-1'></div>
+            <ol className=''>
+                {steps
+                    ? steps.map((step: any, index: number) => (
+                          <li className='py-1'>
+                              <p className='font-bold text-lg'>{`Step ${
+                                  index + 1
+                              }`}</p>
+                              <p>{step.step}</p>
+                          </li>
+                      ))
+                    : null}
             </ol>
         </div>
     );

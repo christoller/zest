@@ -49,7 +49,6 @@ export function AddIngredientToRecipe(props: any) {
     useEffect(() => {
         axios.get(`/api/pantry/${id}`).then((response) => {
             setPantryList(response.data);
-            console.log(pantryList);
         });
     }, []);
 

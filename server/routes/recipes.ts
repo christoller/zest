@@ -31,6 +31,7 @@ recipeRoutes.patch('/:id/', async (req, res) => {
 
 // Get Recipes
 recipeRoutes.get('/:id/', async (req, res) => {
+  console.log('getting recipes')
   if(req.session.user.id === req.params.id){
   const user = {
         _id: ObjectId(req.params.id),

@@ -13,45 +13,30 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import signupBackground from '../../assets/signup-background.jpg';
+import { validateSignup } from '../../functions/validateSignup';
 
 const theme = createTheme();
 
-export function SignUp(props: any) {
-    const [error, setError] = useState<any>();
+export function SignUp() {
+    const [errorMessage, setErrorMessage] = useState<any>();
     let navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        const body: any = Object.fromEntries(data.entries());
 
-        let body = {
-            username: data.get('username'),
-            email: data.get('email'),
-            password: data.get('password'),
-        };
+        setErrorMessage(validateSignup(body));
 
-        if (body.username === '') {
-            setError('Username is required');
-        } else if (body.password === '') {
-            setError('Password is required');
-        } else if (body.email === '') {
-            setError('Email is required');
-        }
-
-        if (!error) {
+        if (!errorMessage) {
             axios
                 .post('/api/users/', body)
                 .then((response) => {
                     navigate('/login');
                 })
                 .catch((error) => {
-                    // setError(error.response.data.message);
-                    console.log(
-                        `There was an error: ${error.response.data.message}`
-                    );
+                    setErrorMessage(error.response.data.message);
                 });
-        } else {
-            throw new Error(error);
         }
     };
 
@@ -85,9 +70,9 @@ export function SignUp(props: any) {
                             <Typography component='h1' variant='h5'>
                                 Sign up
                             </Typography>
-                            {error ? (
+                            {errorMessage ? (
                                 <p style={{ color: 'red', fontWeight: 'bold' }}>
-                                    {error}
+                                    {errorMessage}
                                 </p>
                             ) : null}
                             <Box
@@ -127,6 +112,12 @@ export function SignUp(props: any) {
                                             id='password'
                                             autoComplete='new-password'
                                         />
+                                        <p className='text-xs mt-1'>
+                                            Password must be at least 8
+                                            characters, contain a lower case
+                                            letter, uppercase letter, special
+                                            character and a number.
+                                        </p>
                                     </Grid>
                                 </Grid>
                                 <Button

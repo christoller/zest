@@ -12,7 +12,6 @@ import { Pantry } from './components/pantry/Pantry';
 import { Help } from './components/Help';
 import { useState } from 'react';
 import axios from 'axios';
-import { NavBar } from './components/NavBar';
 import { Dashboard } from './components/Dashboard';
 
 function App() {
@@ -30,7 +29,6 @@ function App() {
         <div className='App'>
             <BrowserRouter>
                 <Header auth={auth} />
-                {/* <NavBar auth={auth} /> */}
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route
@@ -43,10 +41,7 @@ function App() {
                         element={<Logout setAuth={setAuth} />}
                     />
                     <Route path='login' element={<Login setAuth={setAuth} />} />
-                    <Route
-                        path='signup'
-                        element={<SignUp setAuth={setAuth} />}
-                    />
+                    <Route path='signup' element={<SignUp />} />
                     <Route path='recipes' element={<Recipes auth={auth} />} />
                     <Route path='pantry' element={<Pantry auth={auth} />} />
                     <Route path='help' element={<Help />} />
