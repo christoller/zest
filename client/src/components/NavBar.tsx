@@ -10,6 +10,7 @@ function classNames(...classes: any) {
 }
 const StyledButton = styled(Button)(({ theme, color = 'primary' }) => ({
     backgroundColor: 'rgb(101 163 13)',
+    fontFamily: 'Roboto Mono, Monospace',
     ':hover': {
         backgroundColor: 'rgb(132 204 22)',
     },
@@ -70,7 +71,7 @@ export function NavBar(props: any) {
     }, [id]);
 
     return (
-        <Disclosure as='nav' className='bg-white py-3'>
+        <Disclosure as='nav' className='bg-white py-3 font-roboto'>
             {({ open }) => (
                 <>
                     <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:pl-8 lg:pr-0 '>
@@ -99,7 +100,7 @@ export function NavBar(props: any) {
                                     {id ? (
                                         <Link to='/dashboard'>
                                             <img
-                                                className='sm:h-12 md:h-12 w-auto '
+                                                className='sm:h-12 md:h-16 w-auto '
                                                 src={logo}
                                                 alt=''
                                             />

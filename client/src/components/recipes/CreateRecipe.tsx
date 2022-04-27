@@ -81,91 +81,98 @@ export function CreateRecipe(props: any) {
 
     return (
         <div>
-            <Box
-                component='form'
-                noValidate
-                onSubmit={handleSubmit}
-                sx={{ mt: 3 }}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <TextField
-                            required
-                            id='recipe-name'
-                            label='Recipe Name'
-                            name='recipe-name'
-                            value={fieldValue}
-                            onChange={(e: any) => {
-                                setFieldValue(e.target.value);
-                            }}
-                        />
+            <div className='w-1/2 border border-black shadow-black my-8 rounded-xl p-6 mt-8'>
+                <h3 className='font-bold text-lg mb-4'>Name of Recipe</h3>
+                <Box
+                    component='form'
+                    noValidate
+                    onSubmit={handleSubmit}
+                    sx={{ mt: 3, width: '85%', height: '85%' }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                id='recipe-name'
+                                label='Recipe Name'
+                                name='recipe-name'
+                                value={fieldValue}
+                                onChange={(e: any) => {
+                                    setFieldValue(e.target.value);
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Box>
-            <TableContainer component={Paper}>
-                <Table
-                    sx={{ minWidth: 650 }}
-                    size='small'
-                    aria-label='a dense table'>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Ingredient</TableCell>
-                            <TableCell align='right'>Amount</TableCell>
-                            <TableCell align='right'>Cost</TableCell>
-                            <TableCell align='right'></TableCell>
-                            <TableCell align='right'></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {recipeList.map((row: any, index: any) => (
-                            <TableRow
-                                key={row.ingredient}
-                                sx={{
-                                    '&:last-child td, &:last-child th': {
-                                        border: 0,
-                                    },
-                                }}>
-                                <TableCell component='th' scope='row'>
-                                    {row.ingredient}
-                                </TableCell>
-                                <TableCell align='right'>
-                                    {row.amount}
-                                </TableCell>
-                                <TableCell align='right'>{row.cost}</TableCell>
-                                <TableCell align='right'>
-                                    <Button variant='text'>edit</Button>
-                                </TableCell>
-                                <TableCell align='right'>
-                                    <Button
-                                        index-key={index}
-                                        variant='text'
-                                        onClick={handleRemoveIngredient}>
-                                        remove
-                                    </Button>
-                                </TableCell>
+                </Box>
+            </div>
+            <div className='w-1/2 border border-black shadow-black my-8 rounded-xl p-6'>
+                <h3 className='font-bold text-lg mb-4'>Ingredients</h3>
+                <TableContainer component={Paper} sx={{}}>
+                    <Table
+                        sx={{ minWidth: 350 }}
+                        size='small'
+                        aria-label='a dense table'>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Ingredient</TableCell>
+                                <TableCell align='right'>Amount</TableCell>
+                                <TableCell align='right'>Cost</TableCell>
+                                <TableCell align='right'></TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <Button
-                type='submit'
-                variant='text'
-                sx={{ mt: 3, mb: 2 }}
-                onClick={handleOpenAddIngredient}>
-                Add Ingredient
-            </Button>
-            <ol className='list-decimal'>
-                {steps.map((step: any) => {
-                    return <li>{step.step}</li>;
-                })}
-            </ol>
-            <Button
-                type='submit'
-                variant='text'
-                sx={{ mt: 3, mb: 2 }}
-                onClick={handleOpenAddStep}>
-                Add Step
-            </Button>
+                        </TableHead>
+                        <TableBody>
+                            {recipeList.map((row: any, index: number) => (
+                                <TableRow
+                                    key={row.ingredient}
+                                    sx={{
+                                        '&:last-child td, &:last-child th': {
+                                            border: 0,
+                                        },
+                                    }}>
+                                    <TableCell component='th' scope='row'>
+                                        {row.ingredient}
+                                    </TableCell>
+                                    <TableCell align='right'>
+                                        {row.amount}
+                                    </TableCell>
+                                    <TableCell align='right'>
+                                        {row.cost}
+                                    </TableCell>
+                                    <TableCell align='right'>
+                                        <Button
+                                            index-key={index}
+                                            variant='text'
+                                            onClick={handleRemoveIngredient}>
+                                            remove
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <Button
+                    type='submit'
+                    variant='text'
+                    sx={{ mt: 3, mb: 2 }}
+                    onClick={handleOpenAddIngredient}>
+                    Add Ingredient
+                </Button>
+            </div>
+            <div className='w-1/2 border border-black shadow-black my-8 rounded-xl p-6 mt-8'>
+                <h3 className='font-bold text-lg mb-4'>Steps</h3>
+                <ol className='list-decimal'>
+                    {steps.map((step: any, index: number) => {
+                        return <li key={index}>{step.step}</li>;
+                    })}
+                </ol>
+                <Button
+                    type='submit'
+                    variant='text'
+                    sx={{ mt: 3, mb: 2 }}
+                    onClick={handleOpenAddStep}>
+                    Add Step
+                </Button>
+            </div>
             <br />
             <Button
                 type='submit'
@@ -173,6 +180,13 @@ export function CreateRecipe(props: any) {
                 onClick={handleSubmit}
                 sx={{ mt: 3, mb: 2 }}>
                 Create Recipe
+            </Button>
+            <Button
+                sx={{}}
+                variant='text'
+                fullWidth
+                onClick={() => props.setOpen(false)}>
+                Close
             </Button>
             <Modal
                 open={openAddIngredient}

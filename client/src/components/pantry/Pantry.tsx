@@ -28,6 +28,11 @@ const style = {
     p: 4,
 };
 
+const fontStyle = {
+    fontFamily: 'Roboto Slab, Serif',
+    fontWeight: 'bold',
+};
+
 export function Pantry(props: any) {
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
@@ -72,7 +77,7 @@ export function Pantry(props: any) {
 
     if (id) {
         return (
-            <div className='bg-white md:3/4 lg:w-8/12 mt-5 mx-auto p-10 rounded-xl shadow-2xl shadow-black'>
+            <div className='bg-white md:3/4 lg:w-8/12 mt-5 mx-auto p-10 rounded-xl shadow-2xl shadow-black font-roboto'>
                 <h1 className='text-5xl font-bold'>Pantry</h1>
                 <Button onClick={handleOpen} sx={{ mx: 'auto', mt: 2 }}>
                     Add Ingredient to Pantry
@@ -84,18 +89,22 @@ export function Pantry(props: any) {
                         aria-label='simple table'>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Ingredient</TableCell>
-                                <TableCell align='right'>Supplier</TableCell>
-                                <TableCell align='right'>
+                                <TableCell sx={fontStyle}>Ingredient</TableCell>
+                                <TableCell align='right' sx={fontStyle}>
+                                    Supplier
+                                </TableCell>
+                                <TableCell align='right' sx={fontStyle}>
                                     Unit Size (g)
                                 </TableCell>
-                                <TableCell align='right'>
+                                <TableCell align='right' sx={fontStyle}>
                                     Cost Per Unit ($)
                                 </TableCell>
-                                <TableCell align='right'>
+                                <TableCell align='right' sx={fontStyle}>
                                     Cost Per Gram ($)
                                 </TableCell>
-                                <TableCell align='right'>Modify</TableCell>
+                                <TableCell align='right' sx={fontStyle}>
+                                    Modify
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

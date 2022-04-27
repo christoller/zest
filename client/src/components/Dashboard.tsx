@@ -6,6 +6,7 @@ import { getUsername } from '../functions/getUsername';
 
 const StyledButton = styled(Button)(({ theme, color = 'primary' }) => ({
     backgroundColor: 'rgb(101 163 13)',
+    fontFamily: 'Roboto Mono, Monospace',
     ':hover': {
         backgroundColor: 'rgb(132 204 22)',
     },
@@ -35,7 +36,7 @@ export function Dashboard(props: any) {
 
     if (id) {
         return (
-            <div className='bg-white md:w-3/4 lg:w-8/12 mx-auto p-10 mt-5 rounded-xl shadow-2xl shadow-black'>
+            <div className='bg-white md:w-3/4 lg:w-8/12 mx-auto p-10 mt-5 rounded-xl shadow-2xl shadow-black font-roboto'>
                 <h1 className='text-5xl font-bold'>Dashboard</h1>
                 <p className='sm:w-4/5 sm:text-md mx-auto mt-4 text-lg font-bold'>
                     Hello {getUsername()}! Welcome to your very own dashboard!

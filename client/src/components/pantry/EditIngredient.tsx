@@ -49,14 +49,9 @@ export function EditIngredient(props: any) {
             costPerGram: costPerGram,
         };
 
-        axios
-            .patch(`/api/pantry/${id}/edit`, ingredientData)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        axios.patch(`/api/pantry/${id}/edit`, ingredientData).catch((error) => {
+            console.log(error);
+        });
         props.setOpenEdit(false);
     };
 
@@ -67,9 +62,6 @@ export function EditIngredient(props: any) {
 
         axios
             .patch(`/api/pantry/${id}/delete`, ingredientToDelete)
-            .then((response) => {
-                console.log(response);
-            })
             .catch((error) => {
                 console.log(error);
             });

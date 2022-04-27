@@ -7,6 +7,7 @@ const recipeRoutes = express.Router();
 // Add Recipe to Recipes
 
 recipeRoutes.patch('/:id/', async (req, res) => {
+
   if(req.session.user.id === req.params.id){
     const user = {
         _id: ObjectId(req.params.id),
@@ -31,15 +32,16 @@ recipeRoutes.patch('/:id/', async (req, res) => {
 
 // Get Recipes
 recipeRoutes.get('/:id/', async (req, res) => {
-  console.log('getting recipes')
-  if(req.session.user.id === req.params.id){
-  const user = {
-        _id: ObjectId(req.params.id),
-    };
+  if(req.session){
+    if(req.session.user.id === req.params.id){
+      const user = {
+            _id: ObjectId(req.params.id),
+        };
 
-  await User.findById(user._id).then((result) => {
-    res.send(result.recipes)
-  })
+      await User.findById(user._id).then((result) => {
+        res.send(result.recipes)
+      })
+  }
 }
 })
 

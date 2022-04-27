@@ -7,11 +7,12 @@ import {
     TableCell,
     TableBody,
     Typography,
+    Button,
 } from '@mui/material';
 import { roundData } from '../../functions/roundData';
 
 export function DisplayRecipe(props: any) {
-    const { selectedRecipe, recipeList } = props;
+    const { selectedRecipe, recipeList, setOpen } = props;
     const recipeToDisplay = recipeList.filter(
         (recipe: any) => recipe.recipeName === selectedRecipe
     );
@@ -24,7 +25,7 @@ export function DisplayRecipe(props: any) {
                     textAlign: 'center',
                     paddingTop: '2%',
                     fontSize: '3rem',
-                    fontFamily: 'serif',
+                    fontFamily: 'Roboto Mono',
                     fontWeight: 900,
                     marginBottom: '30px',
                 }}>
@@ -82,7 +83,7 @@ export function DisplayRecipe(props: any) {
                                         fontSize: '1rem',
                                         fontWeight: '700',
                                     }}>
-                                    {ingredient.cost}
+                                    {`$${ingredient.cost}`}
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -92,7 +93,7 @@ export function DisplayRecipe(props: any) {
                                 align='right'
                                 sx={{ fontSize: '1rem', fontWeight: '700' }}>
                                 {cost
-                                    ? `Total Cost: ${roundData(cost, 2)}`
+                                    ? `Total Cost: $${roundData(cost, 2)}`
                                     : 'N/A'}
                             </TableCell>
                         </TableRow>
@@ -122,6 +123,13 @@ export function DisplayRecipe(props: any) {
                       ))
                     : null}
             </ol>
+            <Button
+                sx={{}}
+                variant='text'
+                fullWidth
+                onClick={() => setOpen(false)}>
+                Close
+            </Button>
         </div>
     );
 }

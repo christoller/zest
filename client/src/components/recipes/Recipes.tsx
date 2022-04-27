@@ -22,7 +22,19 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '85%',
-    height: '95%',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
+const createRecipeStyle = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    width: '55%',
+    margin: '0 auto',
+    transform: 'translate(-50%, -50%)',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -61,9 +73,6 @@ export function Recipes(props: any) {
         if (id) {
             axios
                 .patch(`/api/recipes/${id}/delete`, recipeToDelete)
-                .then((response) => {
-                    console.log(response);
-                })
                 .catch((error) => {
                     console.log(error);
                 });
@@ -75,27 +84,31 @@ export function Recipes(props: any) {
     }
     if (id) {
         return (
-            <div className='bg-white sm:w-4/5 lg:w-8/12 mt-5 mx-auto p-10 rounded-xl shadow-2xl shadow-black'>
+            <div className='bg-white sm:w-4/5 lg:w-8/12 mt-5 mx-auto p-10 rounded-xl shadow-2xl shadow-black font-roboto'>
                 <h1 className='text-5xl font-bold'>Recipes</h1>
-                <Button onClick={handleOpen} sx={{ mx: 'auto', mt: 2 }}>
+                <Button
+                    onClick={handleOpen}
+                    sx={{
+                        mx: 'auto',
+                        mt: 2,
+                        fontFamily: 'Roboto Slab, Serif',
+                        fontWeight: 'bold',
+                        fontSize: '1rem',
+                    }}>
                     Create Recipe
                 </Button>
                 <TableContainer component={Paper}>
                     <Table
-                        sx={{ minWidth: 350, maxWidth: '80vw' }}
+                        sx={{
+                            minWidth: 350,
+                            maxWidth: '80vw',
+                        }}
                         aria-label='simple table'>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Recipe</TableCell>
-                                <TableCell align='right'></TableCell>
-                                <TableCell align='right'></TableCell>
-                            </TableRow>
-                        </TableHead>
                         <TableBody>
                             {recipeList.map((recipe: any, index: number) => {
                                 return (
                                     <TableRow
-                                        key={recipe.index}
+                                        key={index}
                                         sx={{
                                             '&:last-child td, &:last-child th':
                                                 {
@@ -105,6 +118,12 @@ export function Recipes(props: any) {
                                         <TableCell component='th' scope='row'>
                                             <Button
                                                 variant='text'
+                                                sx={{
+                                                    fontFamily:
+                                                        'Roboto Slab, Serif',
+                                                    fontWeight: 'bold',
+                                                    fontSize: '1rem',
+                                                }}
                                                 onClick={() => {
                                                     handleOpenRecipe();
                                                     setSelectedRecipe(
@@ -118,6 +137,12 @@ export function Recipes(props: any) {
                                         <TableCell align='right'>
                                             <Button
                                                 recipe-key={recipe.recipeName}
+                                                sx={{
+                                                    fontFamily:
+                                                        'Roboto Slab, Serif',
+                                                    // fontWeight: 'bold',
+                                                    fontSize: '1rem',
+                                                }}
                                                 onClick={handleDelete}>
                                                 Delete
                                             </Button>
@@ -134,7 +159,7 @@ export function Recipes(props: any) {
                     onClose={handleClose}
                     aria-labelledby='modal-modal-title'
                     aria-describedby='modal-modal-description'>
-                    <Box sx={style}>
+                    <Box sx={createRecipeStyle}>
                         <CreateRecipe setOpen={setOpen} />
                     </Box>
                 </Modal>
@@ -147,6 +172,7 @@ export function Recipes(props: any) {
                         <DisplayRecipe
                             recipeList={recipeList}
                             selectedRecipe={selectedRecipe}
+                            setOpen={setOpenRecipe}
                         />
                     </Box>
                 </Modal>
