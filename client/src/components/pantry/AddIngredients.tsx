@@ -13,7 +13,7 @@ import { useState } from 'react';
 const theme = createTheme();
 
 export function AddIngredients(props: any) {
-    const [error, setError] = useState<any>();
+    const [error, setError] = useState<string>();
 
     const [costPerUnit, setCostPerUnit] = useState<any>();
     const [unitSize, setUnitSize] = useState<any>();

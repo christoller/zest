@@ -18,13 +18,13 @@ import { validateSignup } from '../../functions/validateSignup';
 const theme = createTheme();
 
 export function SignUp() {
-    const [errorMessage, setErrorMessage] = useState<any>();
+    const [errorMessage, setErrorMessage] = useState<string>();
     let navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const body: any = Object.fromEntries(data.entries());
+        const body: object = Object.fromEntries(data.entries());
 
         setErrorMessage(validateSignup(body));
 

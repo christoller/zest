@@ -19,7 +19,6 @@ export function NavBar(props: any) {
             current: true,
             authRequired: true,
         },
-        { name: 'About', href: '/about', current: false, authRequired: false },
         {
             name: 'Recipes',
             href: '/recipes',
@@ -172,44 +171,3 @@ export function NavBar(props: any) {
         </Disclosure>
     );
 }
-
-// export function NavBar(props: any) {
-//     return (
-//         <nav className='nav-bar'>
-//             <ul className='nav-bar-list'>
-//                 <li>
-//                     <Link to='/'>Home</Link>
-//                 </li>
-//                 <li>
-//                     <Link to='/about'>About</Link>
-//                 </li>
-//                 {props.auth ? (
-//                     <div className='nav-links'>
-//                         <li>
-//                             <Link to='/recipes'>Recipes</Link>
-//                         </li>
-//                         <li>
-//                             <Link to='/pantry'>Pantry</Link>
-//                         </li>
-//                         <li>
-//                             <Link to='/help'>Help</Link>
-//                         </li>
-//                         <li>
-//                             <Link to='/logout'>Logout</Link>
-//                         </li>
-//                     </div>
-//                 ) : (
-//                     <div className='nav-links'>
-//                         <li>
-//                             <Link to='/login'>Login</Link>
-//                         </li>
-
-//                         <li>
-//                             <Link to='/signup'>Signup</Link>
-//                         </li>
-//                     </div>
-//                 )}
-//             </ul>
-//         </nav>
-//     );
-// }

@@ -9,40 +9,28 @@ import { Logout } from './components/sessions/Logout';
 import { Recipes } from './components/recipes/Recipes';
 import { Pantry } from './components/pantry/Pantry';
 import { Help } from './components/Help';
-import { useState } from 'react';
-import axios from 'axios';
 import { Dashboard } from './components/Dashboard';
 import { PageNotFound } from './components/PageNotFound';
 
 function App() {
-    const [auth, setAuth] = useState<boolean>();
-
-    axios.get('/api/sessions').then((response: any) => {
-        if (response.data === localStorage.getItem('user_id')) {
-            setAuth(true);
-        } else {
-            setAuth(false);
-        }
-    });
-
     return (
         <div className='App'>
             <BrowserRouter>
-                <Header auth={auth} />
+                <Header />
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route
                         path='dashboard'
-                        element={<Dashboard auth={auth} />}
+                        element={<Dashboard  />}
                     />
                     <Route
                         path='logout'
-                        element={<Logout setAuth={setAuth} />}
+                        element={<Logout />}
                     />
-                    <Route path='login' element={<Login setAuth={setAuth} />} />
+                    <Route path='login' element={<Login />} />
                     <Route path='signup' element={<SignUp />} />
-                    <Route path='recipes' element={<Recipes auth={auth} />} />
-                    <Route path='pantry' element={<Pantry auth={auth} />} />
+                    <Route path='recipes' element={<Recipes />} />
+                    <Route path='pantry' element={<Pantry />} />
                     <Route path='help' element={<Help />} />
                     <Route path='*' element={<PageNotFound />} />
                 </Routes>

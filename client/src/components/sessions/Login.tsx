@@ -16,9 +16,8 @@ import loginBackground from '../../assets/login-background.jpg';
 
 const theme = createTheme();
 
-export function Login(props: any) {
-    const [error, setError] = useState<any>();
-    const [loggedIn, setLoggedIn] = useState<any>();
+export function Login() {
+    const [error, setError] = useState<string>();
     let navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -44,12 +43,6 @@ export function Login(props: any) {
             .then((response: any) => {
                 localStorage.setItem('user', response.data.username);
                 localStorage.setItem('user_id', response.data.id);
-                setLoggedIn(
-                    `Welcome ${localStorage.getItem(
-                        'user'
-                    )}, You are now logged in.`
-                );
-                props.setAuth(true);
                 navigate('/dashboard');
             })
             .catch((error: any) => {
@@ -108,7 +101,6 @@ export function Login(props: any) {
                         <Typography component='h1' variant='h5'>
                             Sign in
                         </Typography>
-                        {loggedIn}
                         {error ? (
                             <p style={{ color: 'red', fontWeight: 'bold' }}>
                                 {error}

@@ -11,7 +11,8 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { loggedIn } from '../../functions/loggedIn';
 import { CreateRecipe } from './CreateRecipe';
 import { DisplayRecipe } from './DisplayRecipe';
 
@@ -55,17 +56,22 @@ export function Recipes(props: any) {
     const handleOpenRecipe = () => setOpenRecipe(true);
     const handleCloseRecipe = () => setOpenRecipe(false);
     const id = localStorage.getItem('user_id');
+    const navigate = useNavigate();
 
     useEffect(() => {
+        loggedIn();
         if (id) {
             axios.get(`/api/recipes/${id}`).then((response) => {
                 setRecipeList(response.data);
                 setLoading(false);
             });
+        } else {
+            navigate('/login');
         }
     }, [open, id]);
 
     const handleDelete = (e: any) => {
+        loggedIn();
         const recipeToDelete = {
             recipeName: e.target.getAttribute('recipe-key'),
         };
@@ -75,6 +81,8 @@ export function Recipes(props: any) {
                 .catch((error) => {
                     console.log(error);
                 });
+        } else {
+            navigate('/login');
         }
         window.location.reload();
     };

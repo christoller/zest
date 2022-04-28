@@ -32,16 +32,16 @@ const style = {
 };
 
 export function CreateRecipe(props: any) {
-    const [recipeList, setRecipeList] = useState<any>([]);
-    const [steps, setSteps] = useState<any>([]);
+    const [recipeList, setRecipeList] = useState<Array<object>>([]);
+    const [steps, setSteps] = useState<Array<string>>([]);
     const [openAddIngredient, setOpenAddIngredient] = useState(false);
     const [openAddStep, setOpenAddStep] = useState(false);
     const [fieldValue, setFieldValue] = useState('');
 
-    const handleOpenAddIngredient = (e: any) => {
+    const handleOpenAddIngredient = () => {
         setOpenAddIngredient(true);
     };
-    const handleOpenAddStep = (e: any) => {
+    const handleOpenAddStep = () => {
         setOpenAddStep(true);
     };
 
@@ -52,7 +52,7 @@ export function CreateRecipe(props: any) {
         setRecipeList([...revisedRecipeList]);
     };
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = () => {
         const id = localStorage.getItem('user_id');
 
         const calculateCost = () => {

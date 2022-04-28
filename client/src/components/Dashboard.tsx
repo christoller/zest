@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { getUsername } from '../functions/getUsername';
+import { loggedIn } from '../functions/loggedIn';
 import StyledButton from '../styles/styledButton';
 
 export function Dashboard(props: any) {
@@ -29,18 +30,24 @@ export function Dashboard(props: any) {
     ];
 
     useEffect(() => {
+        loggedIn();
         if (id) {
             axios.get(`/api/recipes/${id}`).then((response) => {
                 setRecipeCount(response.data.length);
             });
+        } else {
+            navigate('/login');
         }
     }, [id]);
 
     useEffect(() => {
+        loggedIn();
         if (id) {
             axios.get(`/api/pantry/${id}`).then((response) => {
                 setPantryCount(response.data.length);
             });
+        } else {
+            navigate('/login');
         }
     }, [id]);
 
@@ -82,8 +89,8 @@ export function Dashboard(props: any) {
                         Useful Resources
                     </h3>
                     <ul>
-                        {resources.map((resource) => (
-                            <li>
+                        {resources.map((resource, index) => (
+                            <li key={index}>
                                 <a
                                     href={resource.url}
                                     className='text-lime-700 hover:text-lime-500'>

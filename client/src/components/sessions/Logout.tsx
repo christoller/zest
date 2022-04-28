@@ -2,12 +2,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export function Logout(props: any) {
+    const navigate = useNavigate();
     localStorage.removeItem('user');
     localStorage.removeItem('user_id');
-    let navigate = useNavigate();
 
     axios.post('/api/sessions/logout').then(() => {
-        props.setAuth(false);
         navigate('/');
     });
 

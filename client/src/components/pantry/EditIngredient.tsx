@@ -16,7 +16,7 @@ export function EditIngredient(props: any) {
     const id = localStorage.getItem('user_id');
     const row = props.rows;
     const ingredientKey = props.ingredientKey;
-    const [error, setError] = useState<any>();
+    const [error, setError] = useState<string>();
     const { ingredient, supplier, costPerUnit, unitSize } = row[ingredientKey];
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -78,7 +78,7 @@ export function EditIngredient(props: any) {
         }
     };
 
-    const handleDelete = (e: any) => {
+    const handleDelete = () => {
         const ingredientToDelete = {
             ingredient: ingredient,
         };

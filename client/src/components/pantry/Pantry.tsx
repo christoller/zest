@@ -13,8 +13,9 @@ import Paper from '@mui/material/Paper';
 import { EditIngredient } from './EditIngredient';
 import { keysrt } from '../../functions/keysrt';
 import { roundData } from '../../functions/roundData';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { createData } from '../../functions/createData';
+import { loggedIn } from '../../functions/loggedIn';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -44,16 +45,20 @@ export function Pantry(props: any) {
     };
     const handleCloseEdit = () => setOpenEdit(false);
     const id = localStorage.getItem('user_id');
+    const navigate = useNavigate();
     const [isLoading, setLoading] = useState(true);
     const [pantryList, setPantryList] = useState([]);
     const rows: any[] = [];
 
     useEffect(() => {
+        loggedIn();
         if (id) {
             axios.get(`/api/pantry/${id}`).then((response) => {
                 setPantryList(response.data);
                 setLoading(false);
             });
+        } else {
+            navigate('/login');
         }
     }, [open, openEdit, id]);
 

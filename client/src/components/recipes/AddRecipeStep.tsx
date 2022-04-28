@@ -13,10 +13,8 @@ import {
 import { useState } from 'react';
 
 const theme = createTheme();
-const id = localStorage.getItem('user_id');
 
 export function AddRecipeStep(props: any) {
-    const [error, setError] = useState<any>();
     const { steps, setSteps } = props;
     const [fieldValue, setFieldValue] = useState('');
 
@@ -49,11 +47,6 @@ export function AddRecipeStep(props: any) {
                         <Typography component='h1' variant='h5'>
                             Add Step
                         </Typography>
-                        {error ? (
-                            <p style={{ color: 'red', fontWeight: 'bold' }}>
-                                {error}
-                            </p>
-                        ) : null}
                         <Box
                             component='form'
                             noValidate

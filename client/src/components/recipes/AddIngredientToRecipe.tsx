@@ -19,7 +19,7 @@ const theme = createTheme();
 const id = localStorage.getItem('user_id');
 
 export function AddIngredientToRecipe(props: any) {
-    const [error, setError] = useState<any>();
+    const [error, setError] = useState<string>();
     const [pantryList, setPantryList] = useState([
         { ingredient: '', costPerGram: '' },
     ]);

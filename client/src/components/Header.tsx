@@ -1,7 +1,6 @@
 import { NavBar } from './NavBar';
-import { GetSession } from './sessions/GetSession';
 
-export function Header(props: any) {
+export function Header() {
     return (
         <div className=''>
             <NavBar />
