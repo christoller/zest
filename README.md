@@ -74,7 +74,7 @@ npm start
 
 ```
 
-## Future Additons
+## Future Additions
 - As users update the prices in the pantry, it will automatically update the recipe costings.
 - Analytics based off the above (How recipe costs are tracking with change in ingredient costs)
 - Ability to edit existing recipes
