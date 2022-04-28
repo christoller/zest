@@ -14,7 +14,6 @@ An easy to use template for users to create consistent, easy to read recipes (an
 
 Users create a pantry list of ingredients and their prices, which will be stored in a personal database for easy reference. As users select the ingredients and quantities when they are creating the recipe in the recipe builder, it will calculate and cost the recipe based on the current prices in the database. 
 
-## **App Structure**
 
 ## Technologies Used
 
