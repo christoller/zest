@@ -50,7 +50,7 @@ npm i
 SESSION_NAME="something random"
 SESSION_SECRET="something random"
 SESSION_LIFETIME="Length you want session to last in milliseconds"
-DATABASE_URL=mongodb://localhost:27017/zesty
+DATABASE_URL=mongodb://localhost:27017/"Name of your Database"
 MONGODB_URI ="your MongoDB connection string goes here"
 ```
 
