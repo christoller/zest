@@ -83,7 +83,7 @@ export function DisplayRecipe(props: any) {
                                         fontSize: '1rem',
                                         fontWeight: '700',
                                     }}>
-                                    {`$${ingredient.cost}`}
+                                    {`$${roundData(ingredient.cost, 2)}`}
                                 </TableCell>
                             </TableRow>
                         ))}

@@ -14,29 +14,28 @@ Users can create a pantry list of ingredients and their prices, which will be st
 
 ## **App Structure**
 
-
 ## Technologies To Use
 
-- HTML/CSS
-- React/Node
-- Typescript
-- PostgreSQL
+-   HTML/CSS
+-   React/Node
+-   Typescript
+-   MongoDB
 
 ## App Requirements
 
-- HomePage
+-   HomePage
 
 -   Landing Page Pitch
 
 -   Video/Screenshot Examples?
 
-- Login/Signup Page
+-   Login/Signup Page
 
 -   Form Validation
 
 -   Password Encryption
 
-- Database
+-   Database
 
 -   Ingredients/Pantry Table (Ingredient, Supplier, Cost, Cost per g/ml, dateAdded, Quantity)
 
@@ -46,18 +45,15 @@ Users can create a pantry list of ingredients and their prices, which will be st
 
 ## Extensions
 
-- Ability to upload and scrape the data automatically from an invoice, removing the need to input the data manually.
-- Metric/Imperial Converter
+-   Ability to upload and scrape the data automatically from an invoice, removing the need to input the data manually.
+-   Metric/Imperial Converter
 
 ## Logic
 
-
 ## User Stories
 
-- As a chef, I want all my recipes in the same consistent format
-- As a business owner, I want all the recipes to be easy to cost, based off the current prices
-- As a budgeter, I want to be able to track the cost of my meals
+-   As a chef, I want all my recipes in the same consistent format
+-   As a business owner, I want all the recipes to be easy to cost, based off the current prices
+-   As a budgeter, I want to be able to track the cost of my meals
 
 ## Installation Instructions
-
-

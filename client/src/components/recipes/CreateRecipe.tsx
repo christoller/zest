@@ -161,7 +161,7 @@ export function CreateRecipe(props: any) {
             </div>
             <div className='w-full border border-black shadow-black mt-8 mb-4 mx-auto rounded-xl p-6'>
                 <h3 className='font-bold text-lg mb-4'>Steps</h3>
-                <ol className='list-decimal'>
+                <ol className='list-decimal mx-5'>
                     {steps.map((step: any, index: number) => {
                         return <li key={index}>{step.step}</li>;
                     })}

@@ -76,6 +76,7 @@ export function Recipes(props: any) {
                     console.log(error);
                 });
         }
+        window.location.reload();
     };
 
     if (isLoading && id) {

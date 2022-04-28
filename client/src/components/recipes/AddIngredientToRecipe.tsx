@@ -32,6 +32,11 @@ export function AddIngredientToRecipe(props: any) {
         const pantryIngredient = await pantryList.filter((ingredient) => {
             return ingredient.ingredient === data.get('ingredient');
         });
+        if (pantryIngredient.length === 0) {
+            setError(
+                'Ingredient entered is not in pantry list. Add to pantry and try again.'
+            );
+        }
         const { ingredient, costPerGram } = pantryIngredient[0];
         const ingredientCost = parseFloat(costPerGram) * parseFloat(amount);
         const newRecipeIngredient = {

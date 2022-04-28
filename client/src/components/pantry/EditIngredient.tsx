@@ -65,7 +65,7 @@ export function EditIngredient(props: any) {
             setError(
                 'Invaild Unit Size. Please input a whole number, in grams'
             );
-        } else if (!ingredientData.costPerUnit.match(/^([1-9]\d*|0)$/)) {
+        } else if (!ingredientData.costPerUnit.match(/^[0-9]*(\.[0-9]+)?$/)) {
             setError(
                 'Invaild input in cost field. Input numbers and decimals only.'
             );
