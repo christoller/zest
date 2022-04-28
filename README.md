@@ -38,6 +38,7 @@ Users create a pantry list of ingredients and their prices, which will be stored
 2. Install the dependencies
 
 ```
+
 npm i
 
 ```
@@ -48,16 +49,19 @@ npm i
 4. Create the environment variables in a file called `.env`
 
 ```
+
 SESSION_NAME="something random"
 SESSION_SECRET="something random"
 SESSION_LIFETIME="Length you want session to last in milliseconds"
 DATABASE_URL=mongodb://localhost:27017/"Name of your Database"
 MONGODB_URI ="your MongoDB connection string goes here"
+
 ```
 
 5. Enter the server foleder and run the server
 
 ```
+
 npm start
 
 ```
@@ -65,6 +69,7 @@ npm start
 6. In a new terminal window, enter the client folder and run
 
 ```
+
 npm start
 
 ```
