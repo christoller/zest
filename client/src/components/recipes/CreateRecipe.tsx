@@ -16,6 +16,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import { AddIngredientToRecipe } from './AddIngredientToRecipe';
 import { AddRecipeStep } from './AddRecipeStep';
+import StyledButton from '../../styles/styledButton';
+import { roundData } from '../../functions/roundData';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -30,7 +32,6 @@ const style = {
 };
 
 export function CreateRecipe(props: any) {
-    const [error, setError] = useState<any>();
     const [recipeList, setRecipeList] = useState<any>([]);
     const [steps, setSteps] = useState<any>([]);
     const [openAddIngredient, setOpenAddIngredient] = useState(false);
@@ -81,7 +82,7 @@ export function CreateRecipe(props: any) {
 
     return (
         <div>
-            <div className='w-1/2 border border-black shadow-black my-8 rounded-xl p-6 mt-8'>
+            <div className='w-full border border-black shadow-black my-8 mx-auto rounded-xl p-6 bg-white'>
                 <h3 className='font-bold text-lg mb-4'>Name of Recipe</h3>
                 <Box
                     component='form'
@@ -104,7 +105,7 @@ export function CreateRecipe(props: any) {
                     </Grid>
                 </Box>
             </div>
-            <div className='w-1/2 border border-black shadow-black my-8 rounded-xl p-6'>
+            <div className='w-full border border-black shadow-black my-8 mx-auto rounded-xl p-6'>
                 <h3 className='font-bold text-lg mb-4'>Ingredients</h3>
                 <TableContainer component={Paper} sx={{}}>
                     <Table
@@ -135,7 +136,7 @@ export function CreateRecipe(props: any) {
                                         {row.amount}
                                     </TableCell>
                                     <TableCell align='right'>
-                                        {row.cost}
+                                        {roundData(row.cost, 2)}
                                     </TableCell>
                                     <TableCell align='right'>
                                         <Button
@@ -153,12 +154,12 @@ export function CreateRecipe(props: any) {
                 <Button
                     type='submit'
                     variant='text'
-                    sx={{ mt: 3, mb: 2 }}
+                    sx={{ mt: 3, mb: 2, color: 'rgb(101 163 13)' }}
                     onClick={handleOpenAddIngredient}>
                     Add Ingredient
                 </Button>
             </div>
-            <div className='w-1/2 border border-black shadow-black my-8 rounded-xl p-6 mt-8'>
+            <div className='w-full border border-black shadow-black mt-8 mb-4 mx-auto rounded-xl p-6'>
                 <h3 className='font-bold text-lg mb-4'>Steps</h3>
                 <ol className='list-decimal'>
                     {steps.map((step: any, index: number) => {
@@ -168,21 +169,23 @@ export function CreateRecipe(props: any) {
                 <Button
                     type='submit'
                     variant='text'
-                    sx={{ mt: 3, mb: 2 }}
+                    sx={{ mt: 3, mb: 2, color: 'rgb(101 163 13)' }}
                     onClick={handleOpenAddStep}>
                     Add Step
                 </Button>
             </div>
             <br />
+            <div className='w-full flex justify-center'>
+                <StyledButton
+                    type='submit'
+                    variant='contained'
+                    onClick={handleSubmit}
+                    sx={{}}>
+                    Create Recipe
+                </StyledButton>
+            </div>
             <Button
-                type='submit'
-                variant='contained'
-                onClick={handleSubmit}
-                sx={{ mt: 3, mb: 2 }}>
-                Create Recipe
-            </Button>
-            <Button
-                sx={{}}
+                sx={{ color: 'rgb(101 163 13)', my: 1 }}
                 variant='text'
                 fullWidth
                 onClick={() => props.setOpen(false)}>

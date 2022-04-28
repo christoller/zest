@@ -2,19 +2,12 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import { Button, styled } from '@mui/material';
 import logo from '../assets/logo.png';
+import StyledButton from '../styles/styledButton';
 
 function classNames(...classes: any) {
     return classes.filter(Boolean).join(' ');
 }
-const StyledButton = styled(Button)(({ theme, color = 'primary' }) => ({
-    backgroundColor: 'rgb(101 163 13)',
-    fontFamily: 'Roboto Mono, Monospace',
-    ':hover': {
-        backgroundColor: 'rgb(132 204 22)',
-    },
-}));
 
 export function NavBar(props: any) {
     const navigate = useNavigate();
@@ -71,7 +64,7 @@ export function NavBar(props: any) {
     }, [id]);
 
     return (
-        <Disclosure as='nav' className='bg-white py-3 font-roboto'>
+        <Disclosure as='nav' className='bg-white py-3'>
             {({ open }) => (
                 <>
                     <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:pl-8 lg:pr-0 '>

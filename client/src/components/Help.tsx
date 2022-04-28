@@ -1,8 +1,6 @@
-import { getUsername } from '../functions/getUsername';
-
 export function Help() {
     return (
-        <div className='bg-white md:w-3/4 lg:w-8/12 mx-auto p-10 mt-5 rounded-xl shadow-2xl shadow-black font-roboto'>
+        <div className='bg-white md:w-3/4 lg:w-8/12 mx-auto p-10 mt-5 rounded-xl shadow-2xl shadow-black'>
             <h1 className='text-5xl font-bold'>Help</h1>
             <div>
                 <h3 className='text-2xl mt-8 font-bold'>Getting Started</h3>

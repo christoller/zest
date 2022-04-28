@@ -106,7 +106,6 @@ export function DisplayRecipe(props: any) {
                     paddingTop: '2%',
                     fontSize: '1.5rem',
                     fontWeight: 900,
-                    // marginBottom: '10px',
                 }}>
                 Recipe Method
             </Typography>
@@ -123,13 +122,15 @@ export function DisplayRecipe(props: any) {
                       ))
                     : null}
             </ol>
-            <Button
-                sx={{}}
-                variant='text'
-                fullWidth
-                onClick={() => setOpen(false)}>
-                Close
-            </Button>
+            <div className='button-to-hide'>
+                <Button
+                    sx={{ color: 'rgb(101 163 13)' }}
+                    variant='text'
+                    fullWidth
+                    onClick={() => setOpen(false)}>
+                    Close
+                </Button>
+            </div>
         </div>
     );
 }

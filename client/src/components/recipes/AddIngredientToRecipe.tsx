@@ -29,7 +29,6 @@ export function AddIngredientToRecipe(props: any) {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-
         const pantryIngredient = await pantryList.filter((ingredient) => {
             return ingredient.ingredient === data.get('ingredient');
         });
@@ -41,9 +40,20 @@ export function AddIngredientToRecipe(props: any) {
             cost: ingredientCost,
         };
 
-        setRecipeList([...recipeList, newRecipeIngredient]);
-        setAmount('');
-        props.setOpenAddIngredient(false);
+        if (
+            newRecipeIngredient.ingredient === '' ||
+            newRecipeIngredient.amount === ''
+        ) {
+            setError(
+                'Missing Ingredient Name or Amount. Please complete all fields and try again.'
+            );
+        } else if (!newRecipeIngredient.amount.match(/^(0|[1-9]\d*)$/)) {
+            setError('Invalid amount. Please input a whole number, in grams');
+        } else {
+            setRecipeList([...recipeList, newRecipeIngredient]);
+            setAmount('');
+            props.setOpenAddIngredient(false);
+        }
     };
 
     useEffect(() => {

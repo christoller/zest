@@ -29,7 +29,6 @@ const style = {
 };
 
 const fontStyle = {
-    fontFamily: 'Roboto Slab, Serif',
     fontWeight: 'bold',
 };
 
@@ -77,9 +76,16 @@ export function Pantry(props: any) {
 
     if (id) {
         return (
-            <div className='bg-white md:3/4 lg:w-8/12 mt-5 mx-auto p-10 rounded-xl shadow-2xl shadow-black font-roboto'>
+            <div className='bg-white md:3/4 lg:w-8/12 mt-5 mx-auto p-10 rounded-xl shadow-2xl shadow-black'>
                 <h1 className='text-5xl font-bold'>Pantry</h1>
-                <Button onClick={handleOpen} sx={{ mx: 'auto', mt: 2 }}>
+                <Button
+                    onClick={handleOpen}
+                    sx={{
+                        mx: 'auto',
+                        mt: 2,
+                        fontWeight: 600,
+                        color: 'rgb(101 163 13)',
+                    }}>
                     Add Ingredient to Pantry
                 </Button>
 
@@ -135,6 +141,10 @@ export function Pantry(props: any) {
                                         <Button
                                             variant='text'
                                             ingredient-key={row.index}
+                                            sx={{
+                                                fontWeight: 600,
+                                                color: 'rgb(101 163 13)',
+                                            }}
                                             onClick={handleOpenEdit}>
                                             Edit
                                         </Button>

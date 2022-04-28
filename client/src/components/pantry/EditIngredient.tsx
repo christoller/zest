@@ -49,10 +49,34 @@ export function EditIngredient(props: any) {
             costPerGram: costPerGram,
         };
 
-        axios.patch(`/api/pantry/${id}/edit`, ingredientData).catch((error) => {
-            console.log(error);
-        });
-        props.setOpenEdit(false);
+        if (ingredientData.supplier === '') {
+            ingredientData.supplier = 'N/A';
+        }
+
+        if (
+            ingredientData.ingredient === '' ||
+            ingredientData.unitSize === '' ||
+            ingredientData.costPerUnit === ''
+        ) {
+            setError(
+                'Missing input fields. Complete all form fields and try again'
+            );
+        } else if (!ingredientData.unitSize.match(/^(0|[1-9]\d*)$/)) {
+            setError(
+                'Invaild Unit Size. Please input a whole number, in grams'
+            );
+        } else if (!ingredientData.costPerUnit.match(/^([1-9]\d*|0)$/)) {
+            setError(
+                'Invaild input in cost field. Input numbers and decimals only.'
+            );
+        } else {
+            axios
+                .patch(`/api/pantry/${id}/edit`, ingredientData)
+                .catch((error) => {
+                    console.log(error);
+                });
+            props.setOpenEdit(false);
+        }
     };
 
     const handleDelete = (e: any) => {

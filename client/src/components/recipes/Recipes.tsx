@@ -7,7 +7,6 @@ import {
     TableBody,
     TableCell,
     TableContainer,
-    TableHead,
     TableRow,
 } from '@mui/material';
 import axios from 'axios';
@@ -38,7 +37,7 @@ const createRecipeStyle = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
+    px: 4,
 };
 
 export function Recipes(props: any) {
@@ -64,7 +63,7 @@ export function Recipes(props: any) {
                 setLoading(false);
             });
         }
-    }, [open]);
+    }, [open, id]);
 
     const handleDelete = (e: any) => {
         const recipeToDelete = {
@@ -84,15 +83,15 @@ export function Recipes(props: any) {
     }
     if (id) {
         return (
-            <div className='bg-white sm:w-4/5 lg:w-8/12 mt-5 mx-auto p-10 rounded-xl shadow-2xl shadow-black font-roboto'>
+            <div className='bg-white sm:w-4/5 lg:w-8/12 mt-5 mx-auto p-10 rounded-xl shadow-2xl shadow-black'>
                 <h1 className='text-5xl font-bold'>Recipes</h1>
                 <Button
                     onClick={handleOpen}
                     sx={{
                         mx: 'auto',
                         mt: 2,
-                        fontFamily: 'Roboto Slab, Serif',
-                        fontWeight: 'bold',
+                        fontWeight: 600,
+                        color: 'rgb(101 163 13)',
                         fontSize: '1rem',
                     }}>
                     Create Recipe
@@ -119,9 +118,8 @@ export function Recipes(props: any) {
                                             <Button
                                                 variant='text'
                                                 sx={{
-                                                    fontFamily:
-                                                        'Roboto Slab, Serif',
-                                                    fontWeight: 'bold',
+                                                    fontWeight: 600,
+                                                    color: 'rgb(101 163 13)',
                                                     fontSize: '1rem',
                                                 }}
                                                 onClick={() => {
@@ -138,10 +136,9 @@ export function Recipes(props: any) {
                                             <Button
                                                 recipe-key={recipe.recipeName}
                                                 sx={{
-                                                    fontFamily:
-                                                        'Roboto Slab, Serif',
-                                                    // fontWeight: 'bold',
                                                     fontSize: '1rem',
+                                                    fontWeight: 600,
+                                                    color: 'rgb(101 163 13)',
                                                 }}
                                                 onClick={handleDelete}>
                                                 Delete

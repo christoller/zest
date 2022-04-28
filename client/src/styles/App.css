@@ -21,6 +21,7 @@
   margin: 0 auto;
 }
 
+
 	.MuiButton-contained {
     color:#84CC16;
   }
@@ -35,14 +36,15 @@
   .MuiBackdrop-root {
     display: none;
   }
-  .section-to-print, .section-to-print * {
+  .button-to-hide {
+    display: none;
+  }
+  .section-to-print :not(.button-to-hide)   {
     visibility: visible;
   }
   .section-to-print {
-    /* height: 1000px;
-    width: 700px;
-    position: absolute;
-    left: 500;
-    top: 0; */
+    height: 100vh;
+    max-width: 42rem;
+    margin: 0;
   }
 }

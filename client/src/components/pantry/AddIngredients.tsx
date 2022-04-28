@@ -22,26 +22,49 @@ export function AddIngredients(props: any) {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-
         const costPerGram = parseFloat(costPerUnit) / parseFloat(unitSize);
         const ingredientData = {
             ingredient: data.get('ingredient'),
             supplier: data.get('supplier'),
             unitSize: unitSize,
-            costPerUnit: data.get('costPerUnit'),
+            costPerUnit: costPerUnit,
             costPerGram: costPerGram,
         };
-        console.log(ingredientData);
         const id = localStorage.getItem('user_id');
-        axios
-            .patch(`/api/pantry/${id}/`, ingredientData)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-        props.setOpen(false);
+        console.log(ingredientData);
+
+        
+        if (ingredientData.supplier === '') {
+            ingredientData.supplier = 'N/A';
+        }
+
+        if (
+            ingredientData.ingredient === '' ||
+            ingredientData.unitSize === '' ||
+            ingredientData.costPerUnit === ''
+        ) {
+            setError(
+                'Missing input fields. Complete all form fields and try again'
+            );
+        } else if (!ingredientData.unitSize.match(/^(0|[1-9]\d*)$/)) {
+            setError(
+                'Invaild Unit Size. Please input a whole number, in grams'
+            );
+        } else if (!ingredientData.costPerUnit.match(/^([1-9]\d*|0)$/)) {
+            setError(
+                'Invaild input in cost field. Input numbers and decimals only.'
+            );
+        } else {
+            axios
+                .patch(`/api/pantry/${id}/`, ingredientData)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            props.setOpen(false);
+        }
     };
 
     return (

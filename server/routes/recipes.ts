@@ -61,7 +61,6 @@ recipeRoutes.patch('/:id/delete', async (req,res) => {
         }})
   
     .then((result) => {
-            console.log(result)
             res.json({ status: 'ok' });
         });
       }
