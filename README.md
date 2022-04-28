@@ -1,4 +1,4 @@
-# Zesty
+# Zest.
 
 ## **What is it?**
 
