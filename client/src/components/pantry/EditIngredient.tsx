@@ -60,14 +60,14 @@ export function EditIngredient(props: any) {
             setError(
                 'Missing input fields. Complete all form fields and try again'
             );
-        } else if (!fUnitSize.match(/^(0|[1-9]\d*)$/)) {
+        } else if (!ingredientData.unitSize.match(/^(0|[1-9]\d*)$/)) {
             setError(
                 'Invaild Unit Size. Please input a whole number, in grams'
             );
-        } else if (!fCostPerUnit.match(/^[0-9]*(\.[0-9]+)?$/)) {
-            setError(
-                'Invaild input in cost field. Input numbers and decimals only.'
-            );
+        } else if (
+            !ingredientData.costPerUnit.toString().match(/^(0|[1-9]\d*)$/)
+        ) {
+            setError('Invaild input in cost field. Input numbers only.');
         } else {
             axios
                 .patch(`/api/pantry/${id}/edit`, ingredientData)
