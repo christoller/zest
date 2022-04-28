@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -78,8 +77,6 @@ export function AddIngredients(props: any) {
                             flexDirection: 'column',
                             alignItems: 'center',
                         }}>
-                        <Avatar
-                            sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar>
                         <Typography component='h1' variant='h5'>
                             Add Ingredient
                         </Typography>

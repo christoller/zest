@@ -4,8 +4,9 @@
 
 body {
   margin: 0;
-  background-image: url('../assets/background.jpg');
+  background: url('../assets/background.jpg') no-repeat center center fixed;
   background-size: cover;
+  min-height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -13,9 +14,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 .background-cover {
-  width: 100%;
-  height: 100%;
-    background-color: rgba(101, 101, 101, 0.7);
+  position: absolute;
+  background-color: rgba(101, 101, 101, 0.7);
+  min-width: 100%;
+  min-height: 100%;
 }
 
 code {
