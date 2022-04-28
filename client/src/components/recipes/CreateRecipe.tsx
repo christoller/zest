@@ -81,7 +81,7 @@ export function CreateRecipe(props: any) {
     };
 
     return (
-        <div>
+        <div className='overflow-auto'>
             <div className='w-full border border-black shadow-black my-8 mx-auto rounded-xl p-6 bg-white'>
                 <h3 className='font-bold text-lg mb-4'>Name of Recipe</h3>
                 <Box

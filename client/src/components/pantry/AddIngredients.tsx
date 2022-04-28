@@ -30,7 +30,6 @@ export function AddIngredients(props: any) {
             costPerGram: costPerGram,
         };
         const id = localStorage.getItem('user_id');
-        console.log(ingredientData);
 
         if (ingredientData.supplier === '') {
             ingredientData.supplier = 'N/A';

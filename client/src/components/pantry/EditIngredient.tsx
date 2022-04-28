@@ -60,11 +60,11 @@ export function EditIngredient(props: any) {
             setError(
                 'Missing input fields. Complete all form fields and try again'
             );
-        } else if (!ingredientData.unitSize.match(/^(0|[1-9]\d*)$/)) {
+        } else if (!fUnitSize.match(/^(0|[1-9]\d*)$/)) {
             setError(
                 'Invaild Unit Size. Please input a whole number, in grams'
             );
-        } else if (!ingredientData.costPerUnit.match(/^[0-9]*(\.[0-9]+)?$/)) {
+        } else if (!fCostPerUnit.match(/^[0-9]*(\.[0-9]+)?$/)) {
             setError(
                 'Invaild input in cost field. Input numbers and decimals only.'
             );
@@ -88,6 +88,7 @@ export function EditIngredient(props: any) {
             .catch((error) => {
                 console.log(error);
             });
+        window.location.reload();
     };
 
     return (

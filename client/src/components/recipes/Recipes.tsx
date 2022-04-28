@@ -39,6 +39,8 @@ const createRecipeStyle = {
     border: '2px solid #000',
     boxShadow: 24,
     px: 4,
+    overflow: 'auto',
+    maxHeight: '100%',
 };
 
 export function Recipes(props: any) {
