@@ -1,3 +1,5 @@
+
+[![logo](/client/src/assets/logo.png)]
 # Zest.
 
 Live Site: https://zest-recipe-manager.herokuapp.com/
