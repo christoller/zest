@@ -12,6 +12,7 @@ import {
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { keysrt } from '../../functions/keysrt';
 import { loggedIn } from '../../functions/loggedIn';
 import { CreateRecipe } from './CreateRecipe';
 import { DisplayRecipe } from './DisplayRecipe';
@@ -117,49 +118,55 @@ export function Recipes(props: any) {
                         }}
                         aria-label='simple table'>
                         <TableBody>
-                            {recipeList.map((recipe: any, index: number) => {
-                                return (
-                                    <TableRow
-                                        key={index}
-                                        sx={{
-                                            '&:last-child td, &:last-child th':
-                                                {
-                                                    border: 0,
-                                                },
-                                        }}>
-                                        <TableCell component='th' scope='row'>
-                                            <Button
-                                                variant='text'
-                                                sx={{
-                                                    fontWeight: 600,
-                                                    color: 'rgb(101 163 13)',
-                                                    fontSize: '1rem',
-                                                }}
-                                                onClick={() => {
-                                                    handleOpenRecipe();
-                                                    setSelectedRecipe(
+                            {keysrt(recipeList, 'recipeName').map(
+                                (recipe: any, index: number) => {
+                                    return (
+                                        <TableRow
+                                            key={index}
+                                            sx={{
+                                                '&:last-child td, &:last-child th':
+                                                    {
+                                                        border: 0,
+                                                    },
+                                            }}>
+                                            <TableCell
+                                                component='th'
+                                                scope='row'>
+                                                <Button
+                                                    variant='text'
+                                                    sx={{
+                                                        fontWeight: 600,
+                                                        color: 'rgb(101 163 13)',
+                                                        fontSize: '1rem',
+                                                    }}
+                                                    onClick={() => {
+                                                        handleOpenRecipe();
+                                                        setSelectedRecipe(
+                                                            recipe.recipeName
+                                                        );
+                                                    }}>
+                                                    {recipe.recipeName}
+                                                </Button>
+                                            </TableCell>
+                                            <TableCell></TableCell>
+                                            <TableCell align='right'>
+                                                <Button
+                                                    recipe-key={
                                                         recipe.recipeName
-                                                    );
-                                                }}>
-                                                {recipe.recipeName}
-                                            </Button>
-                                        </TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell align='right'>
-                                            <Button
-                                                recipe-key={recipe.recipeName}
-                                                sx={{
-                                                    fontSize: '1rem',
-                                                    fontWeight: 600,
-                                                    color: 'rgb(101 163 13)',
-                                                }}
-                                                onClick={handleDelete}>
-                                                Delete
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })}
+                                                    }
+                                                    sx={{
+                                                        fontSize: '1rem',
+                                                        fontWeight: 600,
+                                                        color: 'rgb(101 163 13)',
+                                                    }}
+                                                    onClick={handleDelete}>
+                                                    Delete
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                }
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>

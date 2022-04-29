@@ -28,7 +28,7 @@
 
 @media print {
   @page {
-    size: portrait;
+    size: A4 portrait;
   }
   body * {
     visibility: hidden;
@@ -46,5 +46,6 @@
     height: 100vh;
     max-width: 42rem;
     margin: 0;
+    
   }
 }
