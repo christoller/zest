@@ -80,6 +80,7 @@ npm start
 ## Future Additions
 - As users update the prices in the pantry, it will automatically update the recipe costings.
 - Analytics based off the above (How recipe costs are tracking with change in ingredient costs)
+- When users access existing recipes, they will be opened as a PDF file
 - Ability to edit existing recipes
 - Extra additions to the recipe builder such as Recipe Description, Notes, Yield, Calories
 - Calorie component (Add and automatically count calories)
