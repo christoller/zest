@@ -14,7 +14,10 @@ An easy to use template for users to create consistent, easy to read recipes (an
 
 ### **Recipe Costing**
 
-Users create a pantry list of ingredients and their prices, which will be stored in a personal database for easy reference. As users select the ingredients and quantities when they are creating the recipe in the recipe builder, it will calculate and cost the recipe based on the current prices in the database. 
+Users create a pantry list of ingredients and their prices, which will be stored in a personal database for easy reference. As users select the ingredients and quantities when they are creating the recipe in the recipe builder, it will calculate and cost the recipe based on the current prices in the database.
+
+## About the App 
+Zest was built using the MERN stack. MondoDB seemed like the most appropriate choice as it would be easy to store ingredients and steps of varying sizes as objects within arrays in the database. Having the majority of my database experience be with PostgreSQL, I found working my way around MongoDB a little tricky until I discovered Mongoose. Once I had my schema set up, it was easy to use. Client side, I used a mix of the MUI react component library and TailwindCSS to build the design and React-Router for my routings.
 
 
 ## Technologies Used
@@ -77,6 +80,7 @@ npm start
 ## Future Additions
 - As users update the prices in the pantry, it will automatically update the recipe costings.
 - Analytics based off the above (How recipe costs are tracking with change in ingredient costs)
+- When users access existing recipes, they will be opened as a PDF file
 - Ability to edit existing recipes
 - Extra additions to the recipe builder such as Recipe Description, Notes, Yield, Calories
 - Calorie component (Add and automatically count calories)
